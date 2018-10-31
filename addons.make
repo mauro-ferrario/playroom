@@ -1,0 +1,3 @@
+ofxAssimpModelLoader
+ofxAutoReloadedShader
+ofxDatGui
