@@ -38,7 +38,7 @@ void LightsHandler::onColorEvent(ofxDatGuiColorPickerEvent e)
 {
 }
 
-void LightsHandler::passLightsToShader(ofxAutoReloadedShader& shader, ofEasyCam& cam){
+void LightsHandler::passLightsToShader(ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam){
   int totDirectionalLight = 0;
   int totPointLight = 0;
   for (std::vector<Light*>::iterator it = lights.begin() ; it != lights.end(); ++it){
@@ -65,7 +65,7 @@ void LightsHandler::draw(){
   }
 }
 
-void LightsHandler::addDirectionalLight(DirectionalLight const *dirLight, string lightPos, ofxAutoReloadedShader& shader, ofEasyCam& cam){
+void LightsHandler::addDirectionalLight(DirectionalLight const *dirLight, string lightPos, ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam){
   ofColor ambient = dirLight->ambientPicker->getColor();
   ofColor diffuse = dirLight->diffusePicker->getColor();
   float specular = dirLight->specularSlider->getValue();
@@ -81,7 +81,7 @@ void LightsHandler::addDirectionalLight(DirectionalLight const *dirLight, string
   dirLight = NULL;
 }
 
-void LightsHandler::addPointLight(PointLight const *pointLight, string lightPos, ofxAutoReloadedShader& shader, ofEasyCam& cam){
+void LightsHandler::addPointLight(PointLight const *pointLight, string lightPos, ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam){
   ofColor ambient = pointLight->ambientPicker->getColor();
   ofColor diffuse = pointLight->diffusePicker->getColor();
   float specular = pointLight->specularSlider->getValue();

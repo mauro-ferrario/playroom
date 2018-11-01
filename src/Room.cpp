@@ -122,7 +122,7 @@ void Room::updateRoomWalls(){
   bottom.setPosition(0, 0, 0);
 }
 
-void Room::drawBack(ofEasyCam& cam){
+void Room::drawBack(ofxFirstPersonCamera& cam){
   ofPushMatrix();
   ofTranslate(back.getPosition());
   ofSetColor(255,255,0);
@@ -130,7 +130,7 @@ void Room::drawBack(ofEasyCam& cam){
   ofPopMatrix();
 }
 
-void Room::drawRight(ofEasyCam& cam){
+void Room::drawRight(ofxFirstPersonCamera& cam){
   ofPushMatrix();
   ofTranslate(right.getPosition());
   ofRotateYDeg(-90);
@@ -139,7 +139,7 @@ void Room::drawRight(ofEasyCam& cam){
   ofPopMatrix();
 }
 
-void Room::drawLeft(ofEasyCam& cam){
+void Room::drawLeft(ofxFirstPersonCamera& cam){
   ofPushMatrix();
   ofTranslate(left.getPosition());
   ofRotateYDeg(-90);
@@ -148,7 +148,7 @@ void Room::drawLeft(ofEasyCam& cam){
   ofPopMatrix();
 }
 
-void Room::drawBottom(ofEasyCam& cam){
+void Room::drawBottom(ofxFirstPersonCamera& cam){
   ofPushMatrix();
   ofTranslate(bottom.getPosition());
   ofRotateXDeg(-90);
@@ -157,7 +157,7 @@ void Room::drawBottom(ofEasyCam& cam){
   ofPopMatrix();
 }
 
-void Room::drawTop(ofEasyCam& cam){
+void Room::drawTop(ofxFirstPersonCamera& cam){
   ofPushMatrix();
   ofTranslate(top.getPosition());
   ofRotateXDeg(90);
@@ -166,7 +166,7 @@ void Room::drawTop(ofEasyCam& cam){
   ofPopMatrix();
 }
 
-void Room::drawFace(ofPlanePrimitive& face, ofEasyCam& cam){
+void Room::drawFace(ofPlanePrimitive& face, ofxFirstPersonCamera& cam){
   shader.begin();
   shader.setUniform1f("time", ofGetElapsedTimef());
   shader.setUniformMatrix4f("model", face.getGlobalTransformMatrix());
@@ -184,11 +184,11 @@ void Room::addMaterial(ofxAutoReloadedShader shader){
   shader.setUniform1f("material.shininess",  pow(2, (int)materialShininess));
 }
 
-void Room::addLights(ofxAutoReloadedShader shader, ofEasyCam& cam){
+void Room::addLights(ofxAutoReloadedShader shader, ofxFirstPersonCamera& cam){
   lightsHandler->passLightsToShader(shader, cam);
 }
 
-void Room::customDraw(ofEasyCam& cam){
+void Room::customDraw(ofxFirstPersonCamera& cam){
   drawBack(cam);
   drawBottom(cam);
   drawTop(cam);

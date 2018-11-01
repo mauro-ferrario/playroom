@@ -12,6 +12,7 @@
 #include "ofxDatGui.h"
 #include "Room.h"
 #include "LightsHandler.h"
+#include "ofxFirstPersonCamera.h"
 
 class Scene{
 public:
@@ -20,9 +21,14 @@ public:
   void      draw();
   
 private:
-  ofEasyCam cam;
-  Room      room;
-  LightsHandler* lightsHandler;
+  void                  setupGUI();
+  ofxFirstPersonCamera  cam;
+  Room                  room;
+  LightsHandler*        lightsHandler;
+  ofxDatGui*            gui;
+  void                  onButtonEvent(ofxDatGuiButtonEvent e);
+  void                  onSliderEvent(ofxDatGuiSliderEvent e);
+  void                  onColorEvent(ofxDatGuiColorPickerEvent e);
 };
 
 #endif /* Scene_hpp */

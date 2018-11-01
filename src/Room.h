@@ -15,24 +15,25 @@
 #include "Light.h"
 #include "PointLight.h"
 #include "DirectionalLight.h"
+#include "ofxFirstPersonCamera.h"
 
 class Room: public ofNode{
 public:
                         Room();
   void                  setup(int planeSubdivision = 2, int roomWidth = 100, int roomHeight = 50, int roomDepth = 50, LightsHandler* lightsHandler = NULL);
   void                  setupGUI();
-  void                  customDraw(ofEasyCam& cam);
+  void                  customDraw(ofxFirstPersonCamera& cam);
   void                  setLightHandler(LightsHandler* lightsHandler);
 
 private:
-  void                  drawBack(ofEasyCam& cam);
-  void                  drawRight(ofEasyCam& cam);
-  void                  drawLeft(ofEasyCam& cam);
-  void                  drawBottom(ofEasyCam& cam);
-  void                  drawTop(ofEasyCam& cam);
+  void                  drawBack(ofxFirstPersonCamera& cam);
+  void                  drawRight(ofxFirstPersonCamera& cam);
+  void                  drawLeft(ofxFirstPersonCamera& cam);
+  void                  drawBottom(ofxFirstPersonCamera& cam);
+  void                  drawTop(ofxFirstPersonCamera& cam);
   void                  loadShader();
-  void                  drawFace(ofPlanePrimitive& face, ofEasyCam& cam);
-  void                  addLights(ofxAutoReloadedShader shader, ofEasyCam& cam);
+  void                  drawFace(ofPlanePrimitive& face, ofxFirstPersonCamera& cam);
+  void                  addLights(ofxAutoReloadedShader shader, ofxFirstPersonCamera& cam);
   void                  setupLights();
   
   LightsHandler*        lightsHandler;

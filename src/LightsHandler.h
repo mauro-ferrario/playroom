@@ -14,19 +14,20 @@
 #include "DirectionalLight.h"
 #include "ofxDatGui.h"
 #include "ofxAutoReloadedShader.h"
+#include "ofxFirstPersonCamera.h"
 
 class LightsHandler{
 public:
                       LightsHandler();
   void                setupGUI();
   void                addLight(Light* light);
-  void                passLightsToShader(ofxAutoReloadedShader& shader, ofEasyCam& cam);
-  void                addDirectionalLight(DirectionalLight const *dirLight, string lightPos, ofxAutoReloadedShader& shader, ofEasyCam& cam);
-  void                addPointLight(PointLight const *dirLight, string lightPos, ofxAutoReloadedShader& shader, ofEasyCam& cam);
+  void                passLightsToShader(ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam);
+  void                addDirectionalLight(DirectionalLight const *dirLight, string lightPos, ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam);
+  void                addPointLight(PointLight const *dirLight, string lightPos, ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam);
   void                draw();
   vector<Light*>      lights;
   
-  ofxDatGui*    gui;
+  ofxDatGui*          gui;
   
 private:
   void                onButtonEvent(ofxDatGuiButtonEvent e);
