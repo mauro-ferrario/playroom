@@ -19,21 +19,21 @@ void Room::setup(int planeSubdivision, int roomWidth, int roomHeight, int roomDe
   if(lightsHandler != NULL){
     this->lightsHandler = lightsHandler;
   }
-  updateRoomWalls();
+  lightMovementFactor = 1.5;
   setupGUI();
   loadShader();
-  
   setupLights();
+  updateRoomWalls();
 }
 
 void Room::setupLights(){
-  DirectionalLight* directionalLight = new DirectionalLight("Room directional light", true);
+  directionalLight = new DirectionalLight("Room directional light", true);
   this->lightsHandler->addLight(directionalLight);
   
-  PointLight* pointLight = new PointLight("Room point light", true);
+  pointLight = new PointLight("Room point light", true);
   this->lightsHandler->addLight(pointLight);
   
-  PointLight* pointLight2 = new PointLight("Room point light 2", true);
+  pointLight2 = new PointLight("Room point light 2", true);
   this->lightsHandler->addLight(pointLight2);
 }
 
@@ -55,6 +55,8 @@ void Room::setupGUI(){
   sizeFolder->addSlider("Room width", 0, 200, roomSize.x);
   sizeFolder->addSlider("Room height", 0, 200, roomSize.y);
   sizeFolder->addSlider("Room depth", 0, 200, roomSize.z);
+  
+  sizeFolder->addSlider("Light movement factor", 0, 2, lightMovementFactor);
   
   // Material props
   
@@ -95,6 +97,11 @@ void Room::onSliderEvent(ofxDatGuiSliderEvent e)
     updateRoomSize = true;
   }
   
+  if(label == "Light movement factor"){
+    lightMovementFactor = e.target->getValue();
+    updateRoomSize = true;
+  }
+  
   // Color material
   
   if(label == "Material Shininess"){
@@ -115,11 +122,24 @@ void Room::updateRoomWalls(){
   bottom.set(roomSize.x, roomSize.z, this->planeSubdivision, this->planeSubdivision);
   top.set(roomSize.x, roomSize.z, this->planeSubdivision, this->planeSubdivision);
   
-  top.setPosition(0, roomSize.y, 0);
-  back.setPosition(0, roomSize.y*0.5, -roomSize.z*0.5);
-  left.setPosition(-roomSize.x*0.5, roomSize.y*0.5, 0);
-  right.setPosition(roomSize.x*0.5, roomSize.y*0.5, 0);
-  bottom.setPosition(0, 0, 0);
+  top.setPosition(0, roomSize.y*0.5,  -roomSize.z*0.5);
+  back.setPosition(0, 0, -roomSize.z);
+  left.setPosition(-roomSize.x*0.5, 0,  -roomSize.z*0.5);
+  right.setPosition(roomSize.x*0.5, 0,  -roomSize.z*0.5);
+  bottom.setPosition(0, -roomSize.y*0.5, -roomSize.z*0.5);
+  
+  ofVec3f minMovement;
+  minMovement.x = roomSize.x*0.5;
+  minMovement.y = roomSize.y*0.5;
+  minMovement.z = 0;
+  ofVec3f maxMovement;
+  maxMovement.x = -roomSize.x*0.5;
+  maxMovement.y = -roomSize.y*0.5;
+  maxMovement.z = -roomSize.z;
+  maxMovement *= lightMovementFactor;
+  minMovement *= lightMovementFactor;
+  pointLight->setMovement(minMovement, maxMovement);
+  pointLight2->setMovement(minMovement, maxMovement);
 }
 
 void Room::drawBack(ofxFirstPersonCamera& cam, float time){
@@ -199,7 +219,6 @@ void Room::customDraw(ofxFirstPersonCamera& cam, float time){
 //  shader.setUniform1f("time", ofGetElapsedTimef());
 //  shader.setUniformMatrix4f("model", box.getGlobalTransformMatrix());
 //  shader.setUniform3f("viewPos", cam.getGlobalPosition());
-//  addLight(shader);
 //  box.getMesh().drawFaces();
 //  shader.end();
 }

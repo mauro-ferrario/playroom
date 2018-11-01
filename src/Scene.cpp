@@ -22,7 +22,7 @@ Scene::Scene(){
 void Scene::setupGUI(){
   gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
   gui->setPosition(gui->getWidth(), 0);
-  gui->addSlider("Camera near", 0.001, 100);
+  gui->addSlider("Camera near", 0.001, 10);
   gui->addSlider("Camera far", 10, 100000);
   gui->addSlider("Camera speed", 0, 100);
   gui->addSlider("Time speed", 0.001, 10);

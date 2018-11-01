@@ -12,9 +12,10 @@
 
 class PointLight: public Light{
 public:
-                                      PointLight(string name = "", bool addToGUI = false);
+                                      PointLight(string name = "", bool addToGUI = false, ofVec3f maxMovement = ofVec3f(600), ofVec3f minMovement = ofVec3f(-600));
   void                                setupGUI(ofxDatGui& gui);
   void                                draw();
+  void                                setMovement(ofVec3f maxMovement, ofVec3f minMovement);
   ofxDatGuiSlider*                    positionXSlider;
   ofxDatGuiSlider*                    positionYSlider;
   ofxDatGuiSlider*                    positionZSlider;
@@ -23,6 +24,9 @@ public:
   ofxDatGuiSlider*                    quadraticSlider;
   ofxDatGuiSlider*                    attenuationFactorSlider;
   ofxDatGuiToggle*                    drawToggle;
+  ofVec3f                             maxMovement;
+  ofVec3f                             minMovement;
+  ofVec3f                             getPosition();
 
 private:
   ofSpherePrimitive                   sphere;

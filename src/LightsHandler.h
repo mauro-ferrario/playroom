@@ -22,8 +22,8 @@ public:
   void                setupGUI();
   void                addLight(Light* light);
   void                passLightsToShader(ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam);
-  void                addDirectionalLight(DirectionalLight const *dirLight, string lightPos, ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam);
-  void                addPointLight(PointLight const *dirLight, string lightPos, ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam);
+  void                addDirectionalLight(DirectionalLight *dirLight, string lightPos, ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam);
+  void                addPointLight(PointLight *dirLight, string lightPos, ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam);
   void                draw();
   vector<Light*>      lights;
   

@@ -37,6 +37,7 @@ private:
   void                  setupLights();
   
   LightsHandler*        lightsHandler;
+  float                 lightMovementFactor;
   
   // Material
   void                  addMaterial(ofxAutoReloadedShader shader);
@@ -57,6 +58,10 @@ private:
   void                  onColorEvent(ofxDatGuiColorPickerEvent e);
   void                  updateRoomWalls();
   int                   planeSubdivision;
+  
+  DirectionalLight*     directionalLight;
+  PointLight*           pointLight;
+  PointLight*           pointLight2;
   
 };
 

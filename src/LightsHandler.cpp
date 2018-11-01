@@ -44,14 +44,14 @@ void LightsHandler::passLightsToShader(ofxAutoReloadedShader& shader, ofxFirstPe
   for (std::vector<Light*>::iterator it = lights.begin() ; it != lights.end(); ++it){
     if((*it)->type == LightTypes::DIRECTIONAL){
       string lightPos = ofToString(totDirectionalLight);
-      DirectionalLight const *dirLight = dynamic_cast<DirectionalLight const*>(*it);
+      DirectionalLight *dirLight = dynamic_cast<DirectionalLight *>(*it);
       addDirectionalLight(dirLight, lightPos, shader, cam);
       dirLight = NULL;
       totDirectionalLight++;
     }
     if((*it)->type == LightTypes::POINT){
       string lightPos = ofToString(totPointLight);
-      PointLight const *pointLight = dynamic_cast<PointLight const*>(*it);
+      PointLight  *pointLight = dynamic_cast<PointLight *>(*it);
       addPointLight(pointLight, lightPos, shader, cam);
       pointLight = NULL;
       totPointLight++;
@@ -65,7 +65,7 @@ void LightsHandler::draw(){
   }
 }
 
-void LightsHandler::addDirectionalLight(DirectionalLight const *dirLight, string lightPos, ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam){
+void LightsHandler::addDirectionalLight(DirectionalLight *dirLight, string lightPos, ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam){
   ofColor ambient = dirLight->ambientPicker->getColor();
   ofColor diffuse = dirLight->diffusePicker->getColor();
   float specular = dirLight->specularSlider->getValue();
@@ -81,7 +81,7 @@ void LightsHandler::addDirectionalLight(DirectionalLight const *dirLight, string
   dirLight = NULL;
 }
 
-void LightsHandler::addPointLight(PointLight const *pointLight, string lightPos, ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam){
+void LightsHandler::addPointLight(PointLight *pointLight, string lightPos, ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam){
   ofColor ambient = pointLight->ambientPicker->getColor();
   ofColor diffuse = pointLight->diffusePicker->getColor();
   float specular = pointLight->specularSlider->getValue();
@@ -89,10 +89,7 @@ void LightsHandler::addPointLight(PointLight const *pointLight, string lightPos,
   float linear = pointLight->constantSlider->getValue();
   float quadratic = pointLight->constantSlider->getValue();
   float attenuationFactor = pointLight->attenuationFactorSlider->getValue();
-  ofVec3f position;
-  position.x = pointLight->positionXSlider->getValue();
-  position.y = pointLight->positionYSlider->getValue();
-  position.z = pointLight->positionZSlider->getValue();
+  ofVec3f position = pointLight->getPosition();
   shader.setUniform3f("viewPos", cam.getGlobalPosition());
   shader.setUniform3f("pointLights["+lightPos+"].position", position);
   shader.setUniform3f("pointLights["+lightPos+"].ambient", ambient.r/255.0, ambient.g/255.0, ambient.b/255.0);
