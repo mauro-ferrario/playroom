@@ -15,6 +15,7 @@
 #include "ofxDatGui.h"
 #include "ofxAutoReloadedShader.h"
 #include "ofxFirstPersonCamera.h"
+#include "ofxJsonSettings.h"
 
 class LightsHandler{
 public:
@@ -28,6 +29,8 @@ public:
   vector<Light*>      lights;
   
   ofxDatGui*          gui;
+  void                saveSettings();
+  void                loadSettings();
   
 private:
   void                onButtonEvent(ofxDatGuiButtonEvent e);

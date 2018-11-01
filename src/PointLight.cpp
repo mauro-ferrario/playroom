@@ -51,3 +51,26 @@ void PointLight::draw(){
     ofPopMatrix();
   }
 }
+
+void PointLight::saveSettings(){
+  Light::saveSettings();
+  Settings::getFloat("lights/"+nameWithoutSpaces+"/position/x") = positionXSlider->getValue();
+  Settings::getFloat("lights/"+nameWithoutSpaces+"/position/y") = positionYSlider->getValue();
+  Settings::getFloat("lights/"+nameWithoutSpaces+"/position/z") = positionZSlider->getValue();
+  Settings::getFloat("lights/"+nameWithoutSpaces+"/constant") = constantSlider->getValue();
+  Settings::getFloat("lights/"+nameWithoutSpaces+"/linear") = linearSlider->getValue();
+  Settings::getFloat("lights/"+nameWithoutSpaces+"/quadratic") = quadraticSlider->getValue();
+  Settings::getFloat("lights/"+nameWithoutSpaces+"/attenuation-factor") = attenuationFactorSlider->getValue();
+}
+
+void PointLight::loadSettings(){
+  Light::loadSettings();
+  positionXSlider->setValue(Settings::getFloat("lights/"+nameWithoutSpaces+"/position/x"));
+  positionYSlider->setValue(Settings::getFloat("lights/"+nameWithoutSpaces+"/position/y"));
+  positionZSlider->setValue(Settings::getFloat("lights/"+nameWithoutSpaces+"/position/z"));
+  constantSlider->setValue(Settings::getFloat("lights/"+nameWithoutSpaces+"/constant"));
+  linearSlider->setValue(Settings::getFloat("lights/"+nameWithoutSpaces+"/linear"));
+  quadraticSlider->setValue(Settings::getFloat("lights/"+nameWithoutSpaces+"/quadratic"));
+  attenuationFactorSlider->setValue(Settings::getFloat("lights/"+nameWithoutSpaces+"/attenuation-factor"));
+}
+

@@ -1,3 +1,5 @@
 ofxAssimpModelLoader
 ofxAutoReloadedShader
 ofxDatGui
+ofxJSON
+ofxJsonSettings

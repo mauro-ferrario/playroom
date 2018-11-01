@@ -16,14 +16,17 @@
 #include "PointLight.h"
 #include "DirectionalLight.h"
 #include "ofxFirstPersonCamera.h"
+#include "ofxJsonSettings.h"
 
 class Room: public ofNode{
 public:
                         Room();
-  void                  setup(int planeSubdivision = 2, int roomWidth = 100, int roomHeight = 50, int roomDepth = 50, LightsHandler* lightsHandler = NULL);
+  void                  setup(int planeSubdivision = 200, int roomWidth = 100, int roomHeight = 50, int roomDepth = 50, LightsHandler* lightsHandler = NULL);
   void                  setupGUI();
   void                  customDraw(ofxFirstPersonCamera& cam, float time);
   void                  setLightHandler(LightsHandler* lightsHandler);
+  void                  saveSettings();
+  void                  loadSettings();
 
 private:
   void                  drawBack(ofxFirstPersonCamera& cam, float time);

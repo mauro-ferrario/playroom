@@ -99,6 +99,17 @@ void LightsHandler::addPointLight(PointLight *pointLight, string lightPos, ofxAu
   shader.setUniform1f("pointLights["+lightPos+"].linear", linear);
   shader.setUniform1f("pointLights["+lightPos+"].quadratic", quadratic);
   shader.setUniform1f("pointLights["+lightPos+"].attenuationFactor", attenuationFactor);
-  
   pointLight = NULL;
+}
+
+void LightsHandler::loadSettings(){
+  for (std::vector<Light*>::iterator it = lights.begin() ; it != lights.end(); ++it){
+    (*it)->loadSettings();
+  }
+}
+
+void LightsHandler::saveSettings(){
+  for (std::vector<Light*>::iterator it = lights.begin() ; it != lights.end(); ++it){
+    (*it)->saveSettings();
+  }
 }

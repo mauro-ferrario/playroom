@@ -3,6 +3,8 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
   ofBackground(0);
+  ofSetWindowPosition(3000, 0);
+  ofToggleFullscreen();
 }
 
 //--------------------------------------------------------------
@@ -24,6 +26,9 @@ void ofApp::keyPressed(int key){
 void ofApp::keyReleased(int key){
   if(key == 'f'){
     ofToggleFullscreen();
+  }
+  if(key == 'v'){
+    scene.saveSettings();
   }
 }
 

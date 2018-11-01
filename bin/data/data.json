@@ -1,0 +1,69 @@
+{
+   "camera" : {
+      "far" : 51644.1796875,
+      "near" : 0.5699999928474426,
+      "position" : {
+         "x" : -0.2650155425071716,
+         "y" : 0,
+         "z" : 96.92684173583984
+      },
+      "speed" : 0.2000000029802322
+   },
+   "lights" : {
+      "room-directional-light" : {
+         "ambient" : [ 0, 0, 0 ],
+         "diffuse" : [ 0, 0, 0 ],
+         "direction" : {
+            "x" : 0,
+            "y" : 0,
+            "z" : 0
+         },
+         "specular" : 1
+      },
+      "room-point-light" : {
+         "ambient" : [ 0, 0, 0 ],
+         "attenuation-factor" : 0.4900000095367432,
+         "constant" : 1,
+         "diffuse" : [ 208, 65, 0 ],
+         "linear" : 0.1700000017881393,
+         "position" : {
+            "x" : -0.1599999964237213,
+            "y" : -0.07000000029802322,
+            "z" : 0.6200000047683716
+         },
+         "quadratic" : -0.1800000071525574,
+         "specular" : 0.9300000071525574
+      },
+      "room-point-light-2" : {
+         "ambient" : [ 0, 0, 0 ],
+         "attenuation-factor" : 1.070000052452087,
+         "constant" : 1,
+         "diffuse" : [ 208, 65, 0 ],
+         "linear" : 0.1299999952316284,
+         "position" : {
+            "x" : 0.2099999934434891,
+            "y" : -0.1000000014901161,
+            "z" : 0.5199999809265137
+         },
+         "quadratic" : 0.2099999934434891,
+         "specular" : 1
+      }
+   },
+   "room" : {
+      "light-movement-factor" : 2,
+      "material" : {
+         "diffuse-color" : [ 241, 239, 239 ],
+         "shininess" : 8,
+         "specular" : 0
+      },
+      "size" : {
+         "x" : 200,
+         "y" : 68.84999847412109,
+         "z" : 121.3099975585938
+      }
+   },
+   "time" : {
+      "speed" : 5.820000171661377
+   }
+}
+

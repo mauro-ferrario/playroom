@@ -27,6 +27,8 @@ public:
   ofVec3f                             maxMovement;
   ofVec3f                             minMovement;
   ofVec3f                             getPosition();
+  void                                saveSettings();
+  void                                loadSettings();
 
 private:
   ofSpherePrimitive                   sphere;

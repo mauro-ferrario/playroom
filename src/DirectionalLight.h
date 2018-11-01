@@ -15,6 +15,8 @@ public:
                                       DirectionalLight(string name = "", bool addToGUI = false);
   void                                setupGUI(ofxDatGui& gui);
   void                                draw();
+  void                                saveSettings();
+  void                                loadSettings();
   
   ofVec3f                             direction;
   ofxDatGuiSlider*                    directionXSlider;

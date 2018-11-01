@@ -9,7 +9,14 @@
 
 Light::Light(string name, bool addToGUI){
   this->name = name;
+  setNameWithoutSpaces(name);
   this->addToGUI = addToGUI;
+}
+
+void Light::setNameWithoutSpaces(string originalString){
+  nameWithoutSpaces = originalString;
+  std::transform(nameWithoutSpaces.begin(), nameWithoutSpaces.end(), nameWithoutSpaces.begin(), ::tolower);
+  std::replace(nameWithoutSpaces.begin(), nameWithoutSpaces.end(), ' ', '-');
 }
 
 void Light::setupGUI(ofxDatGui& gui){
@@ -24,5 +31,16 @@ void Light::setType(LightTypes type){
 }
 
 void Light::draw(){
-  cout << "Draw main light" << endl;
+}
+
+void Light::saveSettings(){
+  Settings::getColor("lights/"+nameWithoutSpaces+"/ambient") = ambientPicker->getColor();
+  Settings::getColor("lights/"+nameWithoutSpaces+"/diffuse") = diffusePicker->getColor();
+  Settings::getFloat("lights/"+nameWithoutSpaces+"/specular") = specularSlider->getValue();
+}
+
+void Light::loadSettings(){
+  ambientPicker->setColor(Settings::getColor("lights/"+nameWithoutSpaces+"/ambient"));
+  diffusePicker->setColor(Settings::getColor("lights/"+nameWithoutSpaces+"/diffuse"));
+  specularSlider->setValue(Settings::getFloat("lights/"+nameWithoutSpaces+"/specular"));
 }

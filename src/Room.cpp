@@ -24,6 +24,7 @@ void Room::setup(int planeSubdivision, int roomWidth, int roomHeight, int roomDe
   loadShader();
   setupLights();
   updateRoomWalls();
+  loadSettings();
 }
 
 void Room::setupLights(){
@@ -221,4 +222,28 @@ void Room::customDraw(ofxFirstPersonCamera& cam, float time){
 //  shader.setUniform3f("viewPos", cam.getGlobalPosition());
 //  box.getMesh().drawFaces();
 //  shader.end();
+}
+
+void Room::saveSettings(){
+  Settings::getFloat("room/size/x") = roomSize.x;
+  Settings::getFloat("room/size/y") = roomSize.y;
+  Settings::getFloat("room/size/z") = roomSize.z;
+  Settings::getFloat("room/light-movement-factor") = lightMovementFactor;
+  
+  Settings::getFloat("room/material/shininess") = materialShininess;
+  Settings::getFloat("room/material/specular") = materialSpecular;
+  Settings::getColor("room/material/diffuse-color") = materialDiffuseColor;
+}
+
+void Room::loadSettings(){
+  roomSize.x = Settings::getFloat("room/size/x");
+  roomSize.y = Settings::getFloat("room/size/y");
+  roomSize.z = Settings::getFloat("room/size/z");
+  lightMovementFactor = Settings::getFloat("room/light-movement-factor");
+  
+  materialShininess = Settings::getFloat("room/material/shininess");
+  materialSpecular = Settings::getFloat("room/material/specular");
+  materialDiffuseColor = Settings::getColor("room/material/diffuse-color");
+  
+  updateRoomWalls();
 }
