@@ -11,6 +11,7 @@
 #include "ofMain.h"
 #include "ofxDatGui.h"
 #include "Room.h"
+#include "LightsHandler.h"
 
 class Scene{
 public:
@@ -21,6 +22,7 @@ public:
 private:
   ofEasyCam cam;
   Room      room;
+  LightsHandler* lightsHandler;
 };
 
 #endif /* Scene_hpp */

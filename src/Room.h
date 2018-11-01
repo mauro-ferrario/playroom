@@ -10,20 +10,40 @@
 
 #include "ofMain.h"
 #include "ofxDatGui.h"
+#include "ofxAutoReloadedShader.h"
+#include "LightsHandler.h"
+#include "Light.h"
+#include "PointLight.h"
+#include "DirectionalLight.h"
 
 class Room: public ofNode{
 public:
-                        Room(int planeSubdivision = 2, int roomWidth = 100, int roomHeight = 50, int roomDepth = 50);
+                        Room();
+  void                  setup(int planeSubdivision = 2, int roomWidth = 100, int roomHeight = 50, int roomDepth = 50, LightsHandler* lightsHandler = NULL);
   void                  setupGUI();
-  void                  customDraw();
+  void                  customDraw(ofEasyCam& cam);
+  void                  setLightHandler(LightsHandler* lightsHandler);
 
 private:
-  void                  drawBack();
-  void                  drawRight();
-  void                  drawLeft();
-  void                  drawBottom();
-  void                  drawTop();
+  void                  drawBack(ofEasyCam& cam);
+  void                  drawRight(ofEasyCam& cam);
+  void                  drawLeft(ofEasyCam& cam);
+  void                  drawBottom(ofEasyCam& cam);
+  void                  drawTop(ofEasyCam& cam);
+  void                  loadShader();
+  void                  drawFace(ofPlanePrimitive& face, ofEasyCam& cam);
+  void                  addLights(ofxAutoReloadedShader shader, ofEasyCam& cam);
+  void                  setupLights();
   
+  LightsHandler*        lightsHandler;
+  
+  // Material
+  void                  addMaterial(ofxAutoReloadedShader shader);
+  ofColor               materialDiffuseColor;
+  float                 materialShininess;
+  float                 materialSpecular;
+  
+  ofxAutoReloadedShader shader;
   
   ofPlanePrimitive      back;
   ofPlanePrimitive      right;
@@ -33,6 +53,7 @@ private:
   ofxDatGui*            gui;
   ofVec3f               roomSize;
   void                  onSliderEvent(ofxDatGuiSliderEvent e);
+  void                  onColorEvent(ofxDatGuiColorPickerEvent e);
   void                  updateRoomWalls();
   int                   planeSubdivision;
   

@@ -7,36 +7,105 @@
 
 #include "Room.h"
 
+ofBoxPrimitive box;
 
-Room::Room(int planeSubdivision, int roomWidth, int roomHeight, int roomDepth){
+Room::Room(){
+ 
+}
+
+void Room::setup(int planeSubdivision, int roomWidth, int roomHeight, int roomDepth, LightsHandler* lightsHandler){
   this->planeSubdivision = planeSubdivision;
   this->roomSize = ofVec3f(roomWidth, roomHeight, roomDepth);
+  if(lightsHandler != NULL){
+    this->lightsHandler = lightsHandler;
+  }
   updateRoomWalls();
   setupGUI();
+  loadShader();
+  
+  setupLights();
+}
+
+void Room::setupLights(){
+  DirectionalLight* directionalLight = new DirectionalLight("Room directional light", true);
+  this->lightsHandler->addLight(directionalLight);
+  
+  PointLight* pointLight = new PointLight("Room point light", true);
+  this->lightsHandler->addLight(pointLight);
+  
+  PointLight* pointLight2 = new PointLight("Room point light 2", true);
+  this->lightsHandler->addLight(pointLight2);
+}
+
+void Room::loadShader(){
+  shader.load("shaders/room");
+}
+
+void Room::setLightHandler(LightsHandler* lightsHandler){
+  this->lightsHandler = lightsHandler;
 }
 
 void Room::setupGUI(){
   gui = new ofxDatGui( ofxDatGuiAnchor::TOP_LEFT );
-  gui->addSlider("Room width", 0, 200, roomSize.x);
-  gui->addSlider("Room height", 0, 200, roomSize.y);
-  gui->addSlider("Room depth", 0, 200, roomSize.z);
+  ofxDatGuiFolder* sizeFolder = gui->addFolder("Room size", ofColor::blue);
+  ofxDatGuiFolder* textureFolder = gui->addFolder("Room material", ofColor::blue);
+  
+  // Room size
+  
+  sizeFolder->addSlider("Room width", 0, 200, roomSize.x);
+  sizeFolder->addSlider("Room height", 0, 200, roomSize.y);
+  sizeFolder->addSlider("Room depth", 0, 200, roomSize.z);
+  
+  // Material props
+  
+  textureFolder->addSlider("Material Shininess", 1.0, 8.0, 1.0);
+  textureFolder->addColorPicker("Diffuse Color", ofFloatColor(1,0.5,0.31));
+  textureFolder->addSlider("Specular", 0.0, 1.0, 0.5);
+  
   gui->onSliderEvent(this, &Room::onSliderEvent);
+  gui->onColorPickerEvent(this, &Room::onColorEvent);
+}
+
+void Room::onColorEvent(ofxDatGuiColorPickerEvent e)
+{
+  string label =  e.target->getLabel();
+  
+  // Material
+  
+  if(label == "Diffuse Color"){
+    materialDiffuseColor = e.target->getColor();
+  }
 }
 
 void Room::onSliderEvent(ofxDatGuiSliderEvent e)
 {
   string label =  e.target->getLabel();
+  bool updateRoomSize = false;
   
   if(label == "Room width"){
     roomSize.x = e.target->getValue();
+    updateRoomSize = true;
   }
   if(label == "Room height"){
     roomSize.y = e.target->getValue();
+    updateRoomSize = true;
   }
   if(label == "Room depth"){
     roomSize.z = e.target->getValue();
+    updateRoomSize = true;
   }
-  updateRoomWalls();
+  
+  // Color material
+  
+  if(label == "Material Shininess"){
+    materialShininess = e.target->getValue();
+  }
+  if(label == "Specular"){
+    materialSpecular = e.target->getValue();
+  }
+  
+  if(updateRoomSize)
+    updateRoomWalls();
 }
 
 void Room::updateRoomWalls(){
@@ -53,54 +122,84 @@ void Room::updateRoomWalls(){
   bottom.setPosition(0, 0, 0);
 }
 
-void Room::drawBack(){
+void Room::drawBack(ofEasyCam& cam){
   ofPushMatrix();
   ofTranslate(back.getPosition());
   ofSetColor(255,255,0);
-  back.getMesh().drawFaces();
+  drawFace(back, cam);
   ofPopMatrix();
 }
 
-void Room::drawRight(){
+void Room::drawRight(ofEasyCam& cam){
   ofPushMatrix();
   ofTranslate(right.getPosition());
   ofRotateYDeg(-90);
   ofSetColor(255);
-  right.getMesh().drawFaces();
+  drawFace(right, cam);
   ofPopMatrix();
 }
 
-void Room::drawLeft(){
+void Room::drawLeft(ofEasyCam& cam){
   ofPushMatrix();
   ofTranslate(left.getPosition());
   ofRotateYDeg(-90);
   ofSetColor(255,0,0);
-  left.getMesh().drawFaces();
+  drawFace(left, cam);
   ofPopMatrix();
 }
 
-void Room::drawBottom(){
+void Room::drawBottom(ofEasyCam& cam){
   ofPushMatrix();
   ofTranslate(bottom.getPosition());
   ofRotateXDeg(-90);
   ofSetColor(255);
-  bottom.getMesh().drawFaces();
+  drawFace(bottom, cam);
   ofPopMatrix();
 }
 
-void Room::drawTop(){
+void Room::drawTop(ofEasyCam& cam){
   ofPushMatrix();
   ofTranslate(top.getPosition());
   ofRotateXDeg(90);
   ofSetColor(255);
-  top.getMesh().drawFaces();
+  drawFace(top, cam);
   ofPopMatrix();
 }
 
-void Room::customDraw(){
-  drawBack();
-  drawBottom();
-  drawTop();
-  drawLeft();
-  drawRight();
+void Room::drawFace(ofPlanePrimitive& face, ofEasyCam& cam){
+  shader.begin();
+  shader.setUniform1f("time", ofGetElapsedTimef());
+  shader.setUniformMatrix4f("model", face.getGlobalTransformMatrix());
+  shader.setUniform3f("viewPos", cam.getGlobalPosition());
+  addLights(shader, cam);
+  addMaterial(shader);
+  face.getMesh().drawFaces();
+  shader.end();
+}
+
+void Room::addMaterial(ofxAutoReloadedShader shader){
+  // Material
+  shader.setUniform3f("material.diffuse", materialDiffuseColor.r/255.0, materialDiffuseColor.g/255.0, materialDiffuseColor.b/255.0);
+  shader.setUniform3f("material.specular", materialSpecular, materialSpecular, materialSpecular);
+  shader.setUniform1f("material.shininess",  pow(2, (int)materialShininess));
+}
+
+void Room::addLights(ofxAutoReloadedShader shader, ofEasyCam& cam){
+  lightsHandler->passLightsToShader(shader, cam);
+}
+
+void Room::customDraw(ofEasyCam& cam){
+  drawBack(cam);
+  drawBottom(cam);
+  drawTop(cam);
+  drawLeft(cam);
+  drawRight(cam);
+  
+//  shader.begin();
+//  shader.setUniform1f("time", ofGetElapsedTimef());
+//  shader.setUniformMatrix4f("model", box.getGlobalTransformMatrix());
+//  shader.setUniform3f("viewPos", cam.getGlobalPosition());
+//  addLight(shader);
+//  box.getMesh().drawFaces();
+//  shader.end();
 }
