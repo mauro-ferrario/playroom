@@ -22,17 +22,17 @@ public:
                         Room();
   void                  setup(int planeSubdivision = 2, int roomWidth = 100, int roomHeight = 50, int roomDepth = 50, LightsHandler* lightsHandler = NULL);
   void                  setupGUI();
-  void                  customDraw(ofxFirstPersonCamera& cam);
+  void                  customDraw(ofxFirstPersonCamera& cam, float time);
   void                  setLightHandler(LightsHandler* lightsHandler);
 
 private:
-  void                  drawBack(ofxFirstPersonCamera& cam);
-  void                  drawRight(ofxFirstPersonCamera& cam);
-  void                  drawLeft(ofxFirstPersonCamera& cam);
-  void                  drawBottom(ofxFirstPersonCamera& cam);
-  void                  drawTop(ofxFirstPersonCamera& cam);
+  void                  drawBack(ofxFirstPersonCamera& cam, float time);
+  void                  drawRight(ofxFirstPersonCamera& cam, float time);
+  void                  drawLeft(ofxFirstPersonCamera& cam, float time);
+  void                  drawBottom(ofxFirstPersonCamera& cam, float time);
+  void                  drawTop(ofxFirstPersonCamera& cam, float time);
   void                  loadShader();
-  void                  drawFace(ofPlanePrimitive& face, ofxFirstPersonCamera& cam);
+  void                  drawFace(ofPlanePrimitive& face, ofxFirstPersonCamera& cam, float time);
   void                  addLights(ofxAutoReloadedShader shader, ofxFirstPersonCamera& cam);
   void                  setupLights();
   

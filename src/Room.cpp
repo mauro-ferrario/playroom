@@ -122,53 +122,53 @@ void Room::updateRoomWalls(){
   bottom.setPosition(0, 0, 0);
 }
 
-void Room::drawBack(ofxFirstPersonCamera& cam){
+void Room::drawBack(ofxFirstPersonCamera& cam, float time){
   ofPushMatrix();
   ofTranslate(back.getPosition());
   ofSetColor(255,255,0);
-  drawFace(back, cam);
+  drawFace(back, cam, time);
   ofPopMatrix();
 }
 
-void Room::drawRight(ofxFirstPersonCamera& cam){
+void Room::drawRight(ofxFirstPersonCamera& cam, float time){
   ofPushMatrix();
   ofTranslate(right.getPosition());
   ofRotateYDeg(-90);
   ofSetColor(255);
-  drawFace(right, cam);
+  drawFace(right, cam, time);
   ofPopMatrix();
 }
 
-void Room::drawLeft(ofxFirstPersonCamera& cam){
+void Room::drawLeft(ofxFirstPersonCamera& cam, float time){
   ofPushMatrix();
   ofTranslate(left.getPosition());
   ofRotateYDeg(-90);
   ofSetColor(255,0,0);
-  drawFace(left, cam);
+  drawFace(left, cam, time);
   ofPopMatrix();
 }
 
-void Room::drawBottom(ofxFirstPersonCamera& cam){
+void Room::drawBottom(ofxFirstPersonCamera& cam, float time){
   ofPushMatrix();
   ofTranslate(bottom.getPosition());
   ofRotateXDeg(-90);
   ofSetColor(255);
-  drawFace(bottom, cam);
+  drawFace(bottom, cam, time);
   ofPopMatrix();
 }
 
-void Room::drawTop(ofxFirstPersonCamera& cam){
+void Room::drawTop(ofxFirstPersonCamera& cam, float time){
   ofPushMatrix();
   ofTranslate(top.getPosition());
   ofRotateXDeg(90);
   ofSetColor(255);
-  drawFace(top, cam);
+  drawFace(top, cam, time);
   ofPopMatrix();
 }
 
-void Room::drawFace(ofPlanePrimitive& face, ofxFirstPersonCamera& cam){
+void Room::drawFace(ofPlanePrimitive& face, ofxFirstPersonCamera& cam, float time){
   shader.begin();
-  shader.setUniform1f("time", ofGetElapsedTimef());
+  shader.setUniform1f("time", time);
   shader.setUniformMatrix4f("model", face.getGlobalTransformMatrix());
   shader.setUniform3f("viewPos", cam.getGlobalPosition());
   addLights(shader, cam);
@@ -188,12 +188,12 @@ void Room::addLights(ofxAutoReloadedShader shader, ofxFirstPersonCamera& cam){
   lightsHandler->passLightsToShader(shader, cam);
 }
 
-void Room::customDraw(ofxFirstPersonCamera& cam){
-  drawBack(cam);
-  drawBottom(cam);
-  drawTop(cam);
-  drawLeft(cam);
-  drawRight(cam);
+void Room::customDraw(ofxFirstPersonCamera& cam, float time){
+  drawBack(cam, time);
+  drawBottom(cam, time);
+  drawTop(cam, time);
+  drawLeft(cam, time);
+  drawRight(cam, time);
   
 //  shader.begin();
 //  shader.setUniform1f("time", ofGetElapsedTimef());

@@ -9,6 +9,7 @@
 
 
 Scene::Scene(){
+  timeSpeed = 0.1;
   cam.setNearClip(.01);
   cam.setFarClip(100000);
   cam.setMovementMaxSpeed(10.0);
@@ -24,10 +25,10 @@ void Scene::setupGUI(){
   gui->addSlider("Camera near", 0.001, 100);
   gui->addSlider("Camera far", 10, 100000);
   gui->addSlider("Camera speed", 0, 100);
+  gui->addSlider("Time speed", 0.001, 10);
   gui->onButtonEvent(this, &Scene::onButtonEvent);
   gui->onSliderEvent(this, &Scene::onSliderEvent);
   gui->onColorPickerEvent(this, &Scene::onColorEvent);
-  
 }
 
 void Scene::onButtonEvent(ofxDatGuiButtonEvent e)
@@ -50,6 +51,10 @@ void Scene::onSliderEvent(ofxDatGuiSliderEvent e)
   if(label == "Camera speed"){
     cam.setMovementMaxSpeed(e.target->getValue());
   }
+  
+  if(label == "Time speed"){
+    timeSpeed = e.target->getValue();
+  }
 }
 
 void Scene::onColorEvent(ofxDatGuiColorPickerEvent e)
@@ -57,13 +62,13 @@ void Scene::onColorEvent(ofxDatGuiColorPickerEvent e)
 }
 
 void Scene::update(){
-  
+  time += timeSpeed;
 }
 
 void Scene::draw(){
   cam.begin();
   ofEnableDepthTest();
-  room.customDraw(cam);
+  room.customDraw(cam, time);
   lightsHandler->draw();
   ofDisableDepthTest();
   cam.end();

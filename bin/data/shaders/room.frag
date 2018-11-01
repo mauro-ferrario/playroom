@@ -43,6 +43,7 @@ struct Material {
 
 uniform Material material;
 uniform vec3 viewPos;
+uniform float time;
 in vec2 TexCoords;
 in vec3 Normal;
 in vec3 FragPos;
@@ -109,7 +110,8 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
   vec3 ambient  = light.ambient  * material.diffuse;
   vec3 diffuse  = light.diffuse  * diff * material.diffuse;
   vec3 specular = light.specular * spec * material.specular;
-  attenuation *= light.attenuationFactor*1000.0;
+  attenuation *= light.attenuationFactor*1000.0*sin(time*0.1);
+  
   ambient  *= attenuation;
   diffuse  *= attenuation;
   specular *= attenuation;

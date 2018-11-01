@@ -29,6 +29,8 @@ private:
   void                  onButtonEvent(ofxDatGuiButtonEvent e);
   void                  onSliderEvent(ofxDatGuiSliderEvent e);
   void                  onColorEvent(ofxDatGuiColorPickerEvent e);
+  float                 time;
+  float                 timeSpeed;
 };
 
 #endif /* Scene_hpp */

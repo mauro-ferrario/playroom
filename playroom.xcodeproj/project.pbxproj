@@ -114,6 +114,8 @@
 		A7579B6BD9B77152BF320192 /* matrix4x4.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = matrix4x4.h; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/assimp/matrix4x4.h; sourceTree = SOURCE_ROOT; };
 		A8293D5D248661E10813470E /* DefaultIOStream.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = DefaultIOStream.h; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/assimp/DefaultIOStream.h; sourceTree = SOURCE_ROOT; };
 		A9903BCA218B453700EFCE1E /* ofxFirstPersonCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxFirstPersonCamera.h; sourceTree = "<group>"; };
+		A9903BCC218B4A7000EFCE1E /* room.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = room.vert; sourceTree = "<group>"; };
+		A9903BCD218B4A7000EFCE1E /* room.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = room.frag; sourceTree = "<group>"; };
 		AAD9C4D0A605AEE0501AF160 /* Room.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Room.h; path = src/Room.h; sourceTree = SOURCE_ROOT; };
 		ADAE582E4696B9BD64E5B2B8 /* IOSystem.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = IOSystem.hpp; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/assimp/IOSystem.hpp; sourceTree = SOURCE_ROOT; };
 		AED6F84D8DABA623CAF59F13 /* color4.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = color4.h; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/assimp/color4.h; sourceTree = SOURCE_ROOT; };
@@ -347,6 +349,16 @@
 			name = port;
 			sourceTree = "<group>";
 		};
+		A9903BCB218B4A7000EFCE1E /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				A9903BCC218B4A7000EFCE1E /* room.vert */,
+				A9903BCD218B4A7000EFCE1E /* room.frag */,
+			);
+			name = shaders;
+			path = bin/data/shaders;
+			sourceTree = SOURCE_ROOT;
+		};
 		B77F1220F7C30BFF6034CC97 /* Compiler */ = {
 			isa = PBXGroup;
 			children = (
@@ -407,6 +419,7 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				A9903BCB218B4A7000EFCE1E /* shaders */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
