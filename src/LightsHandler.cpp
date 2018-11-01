@@ -113,3 +113,7 @@ void LightsHandler::saveSettings(){
     (*it)->saveSettings();
   }
 }
+
+void LightsHandler::toggleGUI(){
+  gui->setVisible(!gui->getVisible());
+}

@@ -22,6 +22,7 @@ public:
   void      draw();
   void      saveSettings();
   void      loadSettings();
+  void      toggleGUI();
   
 private:
   void                  setupGUI();

@@ -27,6 +27,7 @@ public:
   void                  setLightHandler(LightsHandler* lightsHandler);
   void                  saveSettings();
   void                  loadSettings();
+  void                  toggleGUI();
 
 private:
   void                  drawBack(ofxFirstPersonCamera& cam, float time);

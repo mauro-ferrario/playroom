@@ -103,3 +103,9 @@ void Scene::draw(){
   ofDisableDepthTest();
   cam.end();
 }
+
+void Scene::toggleGUI(){
+  gui->setVisible(!gui->getVisible());
+  room.toggleGUI();
+  lightsHandler->toggleGUI();
+}

@@ -31,6 +31,7 @@ public:
   ofxDatGui*          gui;
   void                saveSettings();
   void                loadSettings();
+  void                toggleGUI();
   
 private:
   void                onButtonEvent(ofxDatGuiButtonEvent e);

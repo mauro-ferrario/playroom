@@ -30,6 +30,9 @@ void ofApp::keyReleased(int key){
   if(key == 'v'){
     scene.saveSettings();
   }
+  if(key == 'g'){
+    scene.toggleGUI();
+  }
 }
 
 //--------------------------------------------------------------

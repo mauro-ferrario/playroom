@@ -247,3 +247,7 @@ void Room::loadSettings(){
   
   updateRoomWalls();
 }
+
+void Room::toggleGUI(){
+  gui->setVisible(!gui->getVisible());
+}
