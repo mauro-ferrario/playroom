@@ -60,6 +60,7 @@ private:
   ofVec3f               roomSize;
   void                  onSliderEvent(ofxDatGuiSliderEvent e);
   void                  onColorEvent(ofxDatGuiColorPickerEvent e);
+  void                  onToggleEvent(ofxDatGuiToggleEvent e);
   void                  updateRoomWalls();
   int                   planeSubdivision;
   

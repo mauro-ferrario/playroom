@@ -49,6 +49,7 @@ void Room::setLightHandler(LightsHandler* lightsHandler){
 void Room::setupGUI(){
   gui = new ofxDatGui( ofxDatGuiAnchor::TOP_LEFT );
   ofxDatGuiFolder* sizeFolder = gui->addFolder("Room size", ofColor::blue);
+  ofxDatGuiFolder* wallsFolder = gui->addFolder("Room walls", ofColor::blue);
   ofxDatGuiFolder* textureFolder = gui->addFolder("Room material", ofColor::blue);
   
   // Room size
@@ -56,7 +57,13 @@ void Room::setupGUI(){
   sizeFolder->addSlider("Room width", 0, 200, roomSize.x);
   sizeFolder->addSlider("Room height", 0, 200, roomSize.y);
   sizeFolder->addSlider("Room depth", 0, 200, roomSize.z);
-  
+
+  wallsFolder->addToggle("Show back", true);
+  wallsFolder->addToggle("Show left", true);
+  wallsFolder->addToggle("Show right", true);
+  wallsFolder->addToggle("Show top", true);
+  wallsFolder->addToggle("Show bottom", true);
+
   sizeFolder->addSlider("Light movement factor", 0, 2, lightMovementFactor);
   
   // Material props
@@ -67,6 +74,7 @@ void Room::setupGUI(){
   
   gui->onSliderEvent(this, &Room::onSliderEvent);
   gui->onColorPickerEvent(this, &Room::onColorEvent);
+  gui->onToggleEvent(this, &Room::onToggleEvent);
 }
 
 void Room::onColorEvent(ofxDatGuiColorPickerEvent e)
@@ -114,6 +122,10 @@ void Room::onSliderEvent(ofxDatGuiSliderEvent e)
   
   if(updateRoomSize)
     updateRoomWalls();
+}
+
+void Room::onToggleEvent(ofxDatGuiToggleEvent e){
+  
 }
 
 void Room::updateRoomWalls(){
@@ -210,11 +222,16 @@ void Room::addLights(ofxAutoReloadedShader shader, ofxFirstPersonCamera& cam){
 }
 
 void Room::customDraw(ofxFirstPersonCamera& cam, float time){
-  drawBack(cam, time);
-  drawBottom(cam, time);
-  drawTop(cam, time);
-  drawLeft(cam, time);
-  drawRight(cam, time);
+  if(gui->getToggle("Show back")->getChecked())
+    drawBack(cam, time);
+  if(gui->getToggle("Show bottom")->getChecked())
+    drawBottom(cam, time);
+  if(gui->getToggle("Show top")->getChecked())
+    drawTop(cam, time);
+  if(gui->getToggle("Show left")->getChecked())
+    drawLeft(cam, time);
+  if(gui->getToggle("Show right")->getChecked())
+    drawRight(cam, time);
   
 //  shader.begin();
 //  shader.setUniform1f("time", ofGetElapsedTimef());
@@ -233,6 +250,12 @@ void Room::saveSettings(){
   Settings::getFloat("room/material/shininess") = materialShininess;
   Settings::getFloat("room/material/specular") = materialSpecular;
   Settings::getColor("room/material/diffuse-color") = materialDiffuseColor;
+  
+  Settings::getBool("room/walls/back/show") = gui->getToggle("Show back")->getChecked();
+  Settings::getBool("room/walls/left/show") = gui->getToggle("Show left")->getChecked();
+  Settings::getBool("room/walls/right/show") = gui->getToggle("Show right")->getChecked();
+  Settings::getBool("room/walls/top/show") = gui->getToggle("Show top")->getChecked();
+  Settings::getBool("room/walls/bottom/show") = gui->getToggle("Show bottom")->getChecked();
 }
 
 void Room::loadSettings(){
@@ -244,6 +267,12 @@ void Room::loadSettings(){
   materialShininess = Settings::getFloat("room/material/shininess");
   materialSpecular = Settings::getFloat("room/material/specular");
   materialDiffuseColor = Settings::getColor("room/material/diffuse-color");
+  
+  gui->getToggle("Show back")->setChecked(Settings::getBool("room/walls/back/show"));
+  gui->getToggle("Show left")->setChecked(Settings::getBool("room/walls/left/show"));
+  gui->getToggle("Show right")->setChecked(Settings::getBool("room/walls/right/show"));
+  gui->getToggle("Show top")->setChecked(Settings::getBool("room/walls/top/show"));
+  gui->getToggle("Show bottom")->setChecked(Settings::getBool("room/walls/bottom/show"));
   
   updateRoomWalls();
 }
