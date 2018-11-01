@@ -142,7 +142,7 @@ void Room::drawRight(ofxFirstPersonCamera& cam, float time){
 void Room::drawLeft(ofxFirstPersonCamera& cam, float time){
   ofPushMatrix();
   ofTranslate(left.getPosition());
-  ofRotateYDeg(-90);
+  ofRotateYDeg(90);
   ofSetColor(255,0,0);
   drawFace(left, cam, time);
   ofPopMatrix();
