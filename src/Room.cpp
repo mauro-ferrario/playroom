@@ -7,8 +7,6 @@
 
 #include "Room.h"
 
-ofBoxPrimitive box;
-
 Room::Room(){
  
 }
@@ -18,8 +16,10 @@ void Room::setup(int planeSubdivision, int roomWidth, int roomHeight, int roomDe
   this->roomSize = ofVec3f(roomWidth, roomHeight, roomDepth);
   if(lightsHandler != NULL){
     this->lightsHandler = lightsHandler;
+    testMesh.setLightsHandler(lightsHandler);
   }
   lightMovementFactor = 1.5;
+  testMesh.setup("Teste mesh 1");
   setupGUI();
   loadShader();
   setupLights();
@@ -44,6 +44,7 @@ void Room::loadShader(){
 
 void Room::setLightHandler(LightsHandler* lightsHandler){
   this->lightsHandler = lightsHandler;
+  testMesh.setLightsHandler(lightsHandler);
 }
 
 void Room::setupGUI(){
@@ -201,6 +202,7 @@ void Room::drawTop(ofxFirstPersonCamera& cam, float time){
 
 void Room::drawFace(ofPlanePrimitive& face, ofxFirstPersonCamera& cam, float time){
   shader.begin();
+  shader.setUniform1i("doTwist", 0);
   shader.setUniform1f("time", time);
   shader.setUniformMatrix4f("model", face.getGlobalTransformMatrix());
   shader.setUniform3f("viewPos", cam.getGlobalPosition());
@@ -233,6 +235,8 @@ void Room::customDraw(ofxFirstPersonCamera& cam, float time){
   if(gui->getToggle("Show right")->getChecked())
     drawRight(cam, time);
   
+  testMesh.draw(cam, time);
+  
 //  shader.begin();
 //  shader.setUniform1f("time", ofGetElapsedTimef());
 //  shader.setUniformMatrix4f("model", box.getGlobalTransformMatrix());
@@ -256,6 +260,7 @@ void Room::saveSettings(){
   Settings::getBool("room/walls/right/show") = gui->getToggle("Show right")->getChecked();
   Settings::getBool("room/walls/top/show") = gui->getToggle("Show top")->getChecked();
   Settings::getBool("room/walls/bottom/show") = gui->getToggle("Show bottom")->getChecked();
+  testMesh.saveSettings();
 }
 
 void Room::loadSettings(){
@@ -275,8 +280,11 @@ void Room::loadSettings(){
   gui->getToggle("Show bottom")->setChecked(Settings::getBool("room/walls/bottom/show"));
   
   updateRoomWalls();
+  testMesh.loadSettings();
 }
 
 void Room::toggleGUI(){
   gui->setVisible(!gui->getVisible());
+  // Devo fare un ciclo  fra tutti gli oggetti aggiunti
+  testMesh.toggleGUI();
 }

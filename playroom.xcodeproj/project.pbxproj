@@ -15,6 +15,7 @@
 		85AE65F04F163000EF630F5C /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 781F73BF02A917F9C115B165 /* Scene.cpp */; };
 		8DED5056525646FA71980866 /* ofxAssimpModelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDE55D82BD962DAC0E94B708 /* ofxAssimpModelLoader.cpp */; };
 		9CF4130A7E6DA19A3DC42B9A /* ofxSmartFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C954E0E8B7DB9D6983309883 /* ofxSmartFont.cpp */; };
+		A901246B218CCFB700B0D870 /* TestMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9012469218CCFB700B0D870 /* TestMesh.cpp */; };
 		B8846EF8E504895A4A9EFEC0 /* ofxAssimpTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6F2EE44AD04FF549AB13699 /* ofxAssimpTexture.cpp */; };
 		BEDFEE7400C58EA4E412B757 /* ofxJSONElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F2B099E6BD1199664C48B177 /* ofxJSONElement.cpp */; };
 		C43EB98F857ECCFEA06DFDF2 /* Room.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21F693B0F1BE2B8C2284FC98 /* Room.cpp */; };
@@ -124,6 +125,10 @@
 		A6197D72F51ED9030D7C5F16 /* vector3.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = vector3.h; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/assimp/vector3.h; sourceTree = SOURCE_ROOT; };
 		A7579B6BD9B77152BF320192 /* matrix4x4.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = matrix4x4.h; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/assimp/matrix4x4.h; sourceTree = SOURCE_ROOT; };
 		A8293D5D248661E10813470E /* DefaultIOStream.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = DefaultIOStream.h; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/assimp/DefaultIOStream.h; sourceTree = SOURCE_ROOT; };
+		A9012469218CCFB700B0D870 /* TestMesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestMesh.cpp; sourceTree = "<group>"; };
+		A901246A218CCFB700B0D870 /* TestMesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestMesh.h; sourceTree = "<group>"; };
+		A901246D218CDB4C00B0D870 /* testMesh.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = testMesh.frag; sourceTree = "<group>"; };
+		A901246E218CDB4C00B0D870 /* testMesh.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = testMesh.vert; sourceTree = "<group>"; };
 		A9903BD4218B7B9A00EFCE1E /* room.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = room.vert; sourceTree = "<group>"; };
 		A9903BD5218B7B9A00EFCE1E /* room.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = room.frag; sourceTree = "<group>"; };
 		AAD9C4D0A605AEE0501AF160 /* Room.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Room.h; path = src/Room.h; sourceTree = SOURCE_ROOT; };
@@ -402,6 +407,8 @@
 			children = (
 				A9903BD4218B7B9A00EFCE1E /* room.vert */,
 				A9903BD5218B7B9A00EFCE1E /* room.frag */,
+				A901246D218CDB4C00B0D870 /* testMesh.frag */,
+				A901246E218CDB4C00B0D870 /* testMesh.vert */,
 			);
 			name = shaders;
 			path = bin/data/shaders;
@@ -513,6 +520,8 @@
 				0757A6AFD57EF258B9BF0973 /* DirectionalLight.h */,
 				D76EB6C85D4545B58FD6009C /* SpotLight.h */,
 				195129592521AA26628BA6CE /* Scene.h */,
+				A9012469218CCFB700B0D870 /* TestMesh.cpp */,
+				A901246A218CCFB700B0D870 /* TestMesh.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -677,6 +686,7 @@
 				3B8120368B4FCCD80883BAF3 /* ofxAssimpAnimation.cpp in Sources */,
 				B8846EF8E504895A4A9EFEC0 /* ofxAssimpTexture.cpp in Sources */,
 				8DED5056525646FA71980866 /* ofxAssimpModelLoader.cpp in Sources */,
+				A901246B218CCFB700B0D870 /* TestMesh.cpp in Sources */,
 				622F2B6B3FFAA37224C22AD2 /* ofxAutoReloadedShader.cpp in Sources */,
 				D3C1C48E59CAA2D68C0DD477 /* ofxDatGuiComponent.cpp in Sources */,
 				C9466C434D1CF8AB968D298D /* ofxDatGui.cpp in Sources */,

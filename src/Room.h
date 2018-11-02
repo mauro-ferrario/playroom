@@ -17,6 +17,7 @@
 #include "DirectionalLight.h"
 #include "ofxFirstPersonCamera.h"
 #include "ofxJsonSettings.h"
+#include "TestMesh.h"
 
 class Room: public ofNode{
 public:
@@ -67,6 +68,9 @@ private:
   DirectionalLight*     directionalLight;
   PointLight*           pointLight;
   PointLight*           pointLight2;
+  
+  TestMesh              testMesh;
+  
   
 };
 
