@@ -46,8 +46,8 @@ vec4 DoTwist( vec4 pos, float t, vec4 positionToCheck )
 
   st = sin(t);
   ct = cos(t);
-  st = sin(t*distancePerc);
-  ct = cos(t*distancePerc);
+//  st = sin(t*distancePerc);
+//  ct = cos(t*distancePerc);
   vec4 new_pos;
   
   new_pos.x = (pos.x*ct - pos.z*st);
@@ -55,7 +55,7 @@ vec4 DoTwist( vec4 pos, float t, vec4 positionToCheck )
   
   new_pos.y = pos.y;
   new_pos.w = pos.w;
-  
+   return( new_pos );
   if(positionToCheck.y <center){
     return pos;
   }
@@ -111,5 +111,5 @@ void addTwist(vec4 position){
   FragPos = vec3(modelMatrix * vec4(twistedPosition.xyz, 1.0));
   Normal = ( inverse(transpose(modelMatrix)) * vec4(twistedNormal)).xyz;
   vec4 enlargePosition = enlarge(twistedPosition, Normal.xyz);
-  gl_Position = projectionMatrix * viewMatrix * modelMatrix * enlargePosition;
+//  gl_Position = projectionMatrix * viewMatrix * modelMatrix * enlargePosition;
 }
