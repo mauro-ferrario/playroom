@@ -46,6 +46,7 @@ void BoxTestMesh::updateBoxSize(){
   boxSize.z = gui->getSlider("Box depth")->getValue();
   float boxSubdivision = gui->getSlider("Box subdivision")->getValue();
   box.set(boxSize.x, boxSize.y, boxSize.z, boxSubdivision, boxSubdivision, boxSubdivision);
+  height = box.getHeight();
 }
 
 void BoxTestMesh::updateMesh(){

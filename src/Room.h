@@ -18,6 +18,7 @@
 #include "ofxFirstPersonCamera.h"
 #include "TestMesh.h"
 #include "BoxTestMesh.h"
+#include "ModelTestMesh.h"
 
 class Room: public ofNode{
 public:
@@ -66,8 +67,7 @@ private:
   
   TestMesh              testMesh;
   BoxTestMesh           boxTestMesh;
-  
-  
+  ModelTestMesh         model;
 };
 
 #endif /* Room_h */

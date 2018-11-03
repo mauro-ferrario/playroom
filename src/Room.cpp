@@ -15,12 +15,14 @@ void Room::setup(int planeSubdivision, int roomWidth, int roomHeight, int roomDe
   if(lightsHandler != NULL){
     this->lightsHandler = lightsHandler;
     boxTestMesh.setLightsHandler(lightsHandler);
+    model.setLightsHandler(lightsHandler);
   }
   this->planeSubdivision = planeSubdivision;
 //  ofBoxPrimitive box;
 //  box.set(20, 100, 20, 20, 20, 20);
 //  testMesh.setup(box.getMesh(), "Teste mesh 1");
-  boxTestMesh.setup("Teste mesh 1");
+  boxTestMesh.setup("Test mesh 1");
+  model.setup("Test model");
   setupGUI(roomWidth, roomHeight, roomDepth);
   loadShader();
   setupLights();
@@ -45,6 +47,7 @@ void Room::loadShader(){
 void Room::setLightHandler(LightsHandler* lightsHandler){
   this->lightsHandler = lightsHandler;
   boxTestMesh.setLightsHandler(lightsHandler);
+  model.setLightsHandler(lightsHandler);
 }
 
 void Room::setupGUI(int roomWidth, int roomHeight, int roomDepth){
@@ -205,7 +208,9 @@ void Room::customDraw(ofxFirstPersonCamera& cam, float time){
   if(gui->getToggle("Show right")->getChecked())
     drawRight(cam, time);
   
+   // Devo fare un ciclo  fra tutti gli oggetti aggiunti
   boxTestMesh.draw(cam, time);
+  model.draw(cam, time);
   
 //  shader.begin();
 //  shader.setUniform1f("time", ofGetElapsedTimef());
@@ -219,11 +224,13 @@ void Room::saveSettings(){
   gui->saveSettings();
   // Devo fare un ciclo  fra tutti gli oggetti aggiunti
   boxTestMesh.saveSettings();
+  model.saveSettings();
 }
 
 void Room::loadSettings(){
   gui->loadSettings();
   boxTestMesh.loadSettings();
+  model.loadSettings();
   updateRoomWalls();
 }
 
@@ -231,4 +238,5 @@ void Room::toggleGUI(){
   gui->setVisible(!gui->getVisible());
   // Devo fare un ciclo  fra tutti gli oggetti aggiunti
   boxTestMesh.toggleGUI();
+  model.toggleGUI();
 }

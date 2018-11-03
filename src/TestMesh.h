@@ -35,6 +35,7 @@ public:
   void                    saveSettings();
   void                    loadSettings();
   void                    toggleGUI();
+  void                    updateOriginalMesh(ofMesh _mesh);
 
 protected:
   float                   height;
@@ -42,7 +43,6 @@ protected:
   virtual void            onColorEvent(ofxDatGuiColorPickerEvent e);
   virtual void            onToggleEvent(ofxDatGuiToggleEvent e);
   virtual void            updateMesh();
-  void                    updateOriginalMesh(ofMesh _mesh);
 
 private:
   

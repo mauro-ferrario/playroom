@@ -23,33 +23,33 @@ void TestMesh::updateOriginalMesh(ofMesh _mesh){
 }
 
 void TestMesh::draw(ofxFirstPersonCamera& cam, float time){
-  ofVec3f tempPosition;
-  ofVec3f tempRotation;
-  tempPosition.x = gui->getSlider("Pos x")->getValue();
-  tempPosition.y = gui->getSlider("Pos y")->getValue();
-  tempPosition.z = gui->getSlider("Pos z")->getValue();
-  tempRotation.x = gui->getSlider("Rotation x")->getValue();
-  tempRotation.y = gui->getSlider("Rotation y")->getValue();
-  tempRotation.z = gui->getSlider("Rotation z")->getValue();
-  ofPushMatrix();
-  ofTranslate(tempPosition);
-  ofRotateXDeg(tempRotation.x);
-  ofRotateYDeg(tempRotation.y);
-  ofRotateZDeg(tempRotation.z);
-  shader.begin();
-  shader.setUniformMatrix4f("normalMatrix", ofGetCurrentNormalMatrix());
-  shader.setUniform1i("doTwist", gui->getToggle("Do twist")->getChecked());
-  shader.setUniform1f("time", time);
-//  shader.setUniformMatrix4f("model", box.getGlobalTransformMatrix());
-  shader.setUniform3f("viewPos", cam.getGlobalPosition());
-  shader.setUniform1f("angle_deg_max", gui->getSlider("Twist rotation")->getValue());
-//  shader.setUniform1f("height", box.getHeight());
-  shader.setUniform1f("height", 30);
-  lightsHandler->passLightsToShader(shader, cam);
-  addMaterial(shader);
-  vbo.drawElements(GL_TRIANGLES, vboTotIndex);
-  shader.end();
-  ofPopMatrix();
+  if(gui->getToggle("Enabled")->getChecked()){
+    ofVec3f tempPosition;
+    ofVec3f tempRotation;
+    tempPosition.x = gui->getSlider("Pos x")->getValue();
+    tempPosition.y = gui->getSlider("Pos y")->getValue();
+    tempPosition.z = gui->getSlider("Pos z")->getValue();
+    tempRotation.x = gui->getSlider("Rotation x")->getValue();
+    tempRotation.y = gui->getSlider("Rotation y")->getValue();
+    tempRotation.z = gui->getSlider("Rotation z")->getValue();
+    ofPushMatrix();
+    ofTranslate(tempPosition);
+    ofRotateXDeg(tempRotation.x);
+    ofRotateYDeg(tempRotation.y);
+    ofRotateZDeg(tempRotation.z);
+    shader.begin();
+    shader.setUniformMatrix4f("normalMatrix", ofGetCurrentNormalMatrix());
+    shader.setUniform1i("doTwist", gui->getToggle("Do twist")->getChecked());
+    shader.setUniform1f("time", time);
+    shader.setUniform3f("viewPos", cam.getGlobalPosition());
+    shader.setUniform1f("angle_deg_max", gui->getSlider("Twist rotation")->getValue());
+    shader.setUniform1f("height", height);
+    lightsHandler->passLightsToShader(shader, cam);
+    addMaterial(shader);
+    vbo.drawElements(GL_TRIANGLES, vboTotIndex);
+    shader.end();
+    ofPopMatrix();
+  }
 }
 
 void TestMesh::addMaterial(ofxAutoReloadedShader shader){
@@ -73,6 +73,7 @@ void TestMesh::setupGUI(){
   gui = new ofxDatGui( ofxDatGuiAnchor::TOP_LEFT, this->name);
   gui->setPosition(gui->getWidth()*2, 0);
   gui->addLabel(":: "+gui->getName()+" ::");
+  gui->addToggle("Enabled", true);
   ofxDatGuiFolder* positionFolder = gui->addFolder("Position", ofColor::blue);
   ofxDatGuiFolder* rotationFolder = gui->addFolder("Rotation", ofColor::blue);
   ofxDatGuiFolder* textureFolder = gui->addFolder("Material", ofColor::blue);
