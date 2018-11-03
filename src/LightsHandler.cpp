@@ -14,6 +14,7 @@ LightsHandler::LightsHandler(){
 
 void LightsHandler::setupGUI(){
   gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT, "light handler" );
+  gui->addLabel(":: "+gui->getName()+" ::");
   gui->onButtonEvent(this, &LightsHandler::onButtonEvent);
   gui->onSliderEvent(this, &LightsHandler::onSliderEvent);
   gui->onColorPickerEvent(this, &LightsHandler::onColorEvent);

@@ -72,6 +72,7 @@ void TestMesh::loadShader(){
 void TestMesh::setupGUI(){
   gui = new ofxDatGui( ofxDatGuiAnchor::TOP_LEFT, this->name);
   gui->setPosition(gui->getWidth()*2, 0);
+  gui->addLabel(":: "+gui->getName()+" ::");
   ofxDatGuiFolder* positionFolder = gui->addFolder("Position", ofColor::blue);
   ofxDatGuiFolder* rotationFolder = gui->addFolder("Rotation", ofColor::blue);
   ofxDatGuiFolder* textureFolder = gui->addFolder("Material", ofColor::blue);
