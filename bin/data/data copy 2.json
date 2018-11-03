@@ -22,7 +22,7 @@
          "ambient-color" : [ 0, 0, 0 ],
          "attenuation-factor" : 0.25,
          "constant" : 1,
-         "diffuse-color" : [ 225, 0, 84 ],
+         "diffuse-color" : [ 227, 0, 67 ],
          "draw" : false,
          "linear" : 0,
          "position-x" : -0.4300000071525574,
@@ -65,7 +65,7 @@
       "room-walls" : {
          "show-back" : true,
          "show-bottom" : true,
-         "show-left" : true,
+         "show-left" : false,
          "show-right" : true,
          "show-top" : true
       },
@@ -75,7 +75,7 @@
    "scene" : {
       "camera-far" : 40989.51171875,
       "camera-near" : 0.7400000095367432,
-      "camera-speed" : 5.739999771118164,
+      "camera-speed" : 25.40999984741211,
       "time-speed" : 1.720000028610229
    },
    "test-mesh" : {
@@ -116,32 +116,6 @@
          "twist-rotation" : 174.1000061035156
       },
       "twist-rotation" : 0
-   },
-   "teste-mesh-1" : {
-      "material" : {
-         "diffuse-color" : [ 225, 211, 206 ],
-         "material-shininess" : 4.670000076293945,
-         "specular" : 0.6000000238418579
-      },
-      "position" : {
-         "pos-x" : 0,
-         "pos-y" : -9.840000152587891,
-         "pos-z" : -49.18000030517578
-      },
-      "rotation" : {
-         "rotation-x" : 0,
-         "rotation-y" : 0,
-         "rotation-z" : -90
-      },
-      "size" : {
-         "box-depth" : 5.739999771118164,
-         "box-height" : 163.9299926757812,
-         "box-subdivision" : 86.33999633789062,
-         "box-width" : 8.199999809265137
-      },
-      "twist" : {
-         "twist-rotation" : 298.0299987792969
-      }
    }
 }
 

@@ -21,17 +21,3 @@ void DirectionalLight::setupGUI(ofxDatGui& gui){
 void DirectionalLight::draw(){
   // No need to draw
 }
-
-void DirectionalLight::saveSettings(){
-  Light::saveSettings();
-  Settings::getFloat("lights/"+nameWithoutSpaces+"/direction/x") = directionXSlider->getValue();
-  Settings::getFloat("lights/"+nameWithoutSpaces+"/direction/y") = directionYSlider->getValue();
-  Settings::getFloat("lights/"+nameWithoutSpaces+"/direction/z") = directionZSlider->getValue();
-}
-
-void DirectionalLight::loadSettings(){
-  Light::loadSettings();
-  directionXSlider->setValue(Settings::getFloat("lights/"+nameWithoutSpaces+"/direction/x"));
-  directionYSlider->setValue(Settings::getFloat("lights/"+nameWithoutSpaces+"/direction/y"));
-  directionZSlider->setValue(Settings::getFloat("lights/"+nameWithoutSpaces+"/direction/z"));
-}

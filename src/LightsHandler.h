@@ -15,7 +15,6 @@
 #include "ofxDatGui.h"
 #include "ofxAutoReloadedShader.h"
 #include "ofxFirstPersonCamera.h"
-#include "ofxJsonSettings.h"
 
 class LightsHandler{
 public:

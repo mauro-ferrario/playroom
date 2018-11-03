@@ -24,7 +24,7 @@ void Room::setup(int planeSubdivision, int roomWidth, int roomHeight, int roomDe
   loadShader();
   setupLights();
   updateRoomWalls();
-  loadSettings();
+//  loadSettings();
 }
 
 void Room::setupLights(){
@@ -48,7 +48,7 @@ void Room::setLightHandler(LightsHandler* lightsHandler){
 }
 
 void Room::setupGUI(){
-  gui = new ofxDatGui( ofxDatGuiAnchor::TOP_LEFT );
+  gui = new ofxDatGui( ofxDatGuiAnchor::TOP_LEFT, "room");
   ofxDatGuiFolder* sizeFolder = gui->addFolder("Room size", ofColor::blue);
   ofxDatGuiFolder* wallsFolder = gui->addFolder("Room walls", ofColor::blue);
   ofxDatGuiFolder* textureFolder = gui->addFolder("Room material", ofColor::blue);
@@ -246,39 +246,13 @@ void Room::customDraw(ofxFirstPersonCamera& cam, float time){
 }
 
 void Room::saveSettings(){
-  Settings::getFloat("room/size/x") = roomSize.x;
-  Settings::getFloat("room/size/y") = roomSize.y;
-  Settings::getFloat("room/size/z") = roomSize.z;
-  Settings::getFloat("room/light-movement-factor") = lightMovementFactor;
-  
-  Settings::getFloat("room/material/shininess") = materialShininess;
-  Settings::getFloat("room/material/specular") = materialSpecular;
-  Settings::getColor("room/material/diffuse-color") = materialDiffuseColor;
-  
-  Settings::getBool("room/walls/back/show") = gui->getToggle("Show back")->getChecked();
-  Settings::getBool("room/walls/left/show") = gui->getToggle("Show left")->getChecked();
-  Settings::getBool("room/walls/right/show") = gui->getToggle("Show right")->getChecked();
-  Settings::getBool("room/walls/top/show") = gui->getToggle("Show top")->getChecked();
-  Settings::getBool("room/walls/bottom/show") = gui->getToggle("Show bottom")->getChecked();
+  gui->saveSettings();
+  // Devo fare un ciclo  fra tutti gli oggetti aggiunti
   testMesh.saveSettings();
 }
 
 void Room::loadSettings(){
-  roomSize.x = Settings::getFloat("room/size/x");
-  roomSize.y = Settings::getFloat("room/size/y");
-  roomSize.z = Settings::getFloat("room/size/z");
-  lightMovementFactor = Settings::getFloat("room/light-movement-factor");
-  
-  materialShininess = Settings::getFloat("room/material/shininess");
-  materialSpecular = Settings::getFloat("room/material/specular");
-  materialDiffuseColor = Settings::getColor("room/material/diffuse-color");
-  
-  gui->getToggle("Show back")->setChecked(Settings::getBool("room/walls/back/show"));
-  gui->getToggle("Show left")->setChecked(Settings::getBool("room/walls/left/show"));
-  gui->getToggle("Show right")->setChecked(Settings::getBool("room/walls/right/show"));
-  gui->getToggle("Show top")->setChecked(Settings::getBool("room/walls/top/show"));
-  gui->getToggle("Show bottom")->setChecked(Settings::getBool("room/walls/bottom/show"));
-  
+  gui->loadSettings();
   updateRoomWalls();
   testMesh.loadSettings();
 }

@@ -17,13 +17,3 @@ void SpotLight::setupGUI(ofxDatGui& gui){
 //  directionYSlider = lightGUIFolder->addSlider("Direction y", -1, 1, 0);
 //  directionZSlider = lightGUIFolder->addSlider("Direction z", -1, 1, 0);
 }
-
-void SpotLight::saveSettings(){
-  Light::saveSettings();
-  cout << "Save setting spot light" << endl;
-}
-
-void SpotLight::loadSettings(){
-  Light::loadSettings();
-  cout << "Load setting spot light" << endl;
-}

@@ -14,8 +14,6 @@ class SpotLight: public Light{
 public:
             SpotLight(string name = "", bool addTooGUI = false);
   void      setupGUI(ofxDatGui& gui);
-  void      saveSettings();
-  void      loadSettings();
 };
 
 #endif /* SpotLight_hpp */

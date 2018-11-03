@@ -10,7 +10,6 @@
 
 #include "ofMain.h"
 #include "ofxDatGui.h"
-#include "ofxJsonSettings.h"
 
 enum class LightTypes
 {
@@ -27,8 +26,6 @@ public:
   void                                setType(LightTypes type);
   virtual void                        draw();
   void                                setNameWithoutSpaces(string originalString);
-  virtual void                        saveSettings();
-  virtual void                        loadSettings();
   
   ofxDatGuiColorPicker*               ambientPicker;
   ofxDatGuiColorPicker*               diffusePicker;

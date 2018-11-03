@@ -54,7 +54,7 @@ void TestMesh::loadShader(){
 }
 
 void TestMesh::setupGUI(){
-  gui = new ofxDatGui( ofxDatGuiAnchor::TOP_LEFT );
+  gui = new ofxDatGui( ofxDatGuiAnchor::TOP_LEFT, this->name);
   gui->setPosition(gui->getWidth()*2, 0);
   ofxDatGuiFolder* positionFolder = gui->addFolder("Position", ofColor::blue);
   ofxDatGuiFolder* rotationFolder = gui->addFolder("Rotation", ofColor::blue);
@@ -168,37 +168,11 @@ void TestMesh::onToggleEvent(ofxDatGuiToggleEvent e){
 }
 
 void TestMesh::saveSettings(){
-  Settings::getFloat("mesh/"+this->name+"/position/x") = gui->getSlider("Pos x")->getValue();
-  Settings::getFloat("mesh/"+this->name+"/position/y") = gui->getSlider("Pos y")->getValue();
-  Settings::getFloat("mesh/"+this->name+"/position/z") = gui->getSlider("Pos z")->getValue();
-  Settings::getFloat("mesh/"+this->name+"/rotation/x") = gui->getSlider("Rotation x")->getValue();
-  Settings::getFloat("mesh/"+this->name+"/rotation/y") = gui->getSlider("Rotation y")->getValue();
-  Settings::getFloat("mesh/"+this->name+"/rotation/z") = gui->getSlider("Rotation z")->getValue();
-  Settings::getFloat("mesh/"+this->name+"/size/width") = gui->getSlider("Box width")->getValue();
-  Settings::getFloat("mesh/"+this->name+"/size/height") = gui->getSlider("Box height")->getValue();
-  Settings::getFloat("mesh/"+this->name+"/size/depth") = gui->getSlider("Box depth")->getValue();
-  Settings::getFloat("mesh/"+this->name+"/size/subdivision") = gui->getSlider("Box subdivision")->getValue();
-  Settings::getFloat("mesh/"+this->name+"/twist/rotation") = gui->getSlider("Twist rotation")->getValue();
-  Settings::getFloat("mesh/"+this->name+"/material/shininess") = materialShininess;
-  Settings::getFloat("mesh/"+this->name+"/material/specular") = materialSpecular;
-  Settings::getColor("mesh/"+this->name+"/material/diffuse-color") = materialDiffuseColor;
+  gui->saveSettings();
 }
 
 void TestMesh::loadSettings(){
-  gui->getSlider("Pos x")->setValue(Settings::getFloat("mesh/"+this->name+"/position/x"));
-  gui->getSlider("Pos y")->setValue(Settings::getFloat("mesh/"+this->name+"/position/y"));
-  gui->getSlider("Pos z")->setValue(Settings::getFloat("mesh/"+this->name+"/position/z"));
-  gui->getSlider("Rotation x")->setValue(Settings::getFloat("mesh/"+this->name+"/rotation/x"));
-  gui->getSlider("Rotation y")->setValue(Settings::getFloat("mesh/"+this->name+"/rotation/y"));
-  gui->getSlider("Rotation z")->setValue(Settings::getFloat("mesh/"+this->name+"/rotation/z"));
-  gui->getSlider("Box width")->setValue(Settings::getFloat("mesh/"+this->name+"/size/width"));
-  gui->getSlider("Box height")->setValue(Settings::getFloat("mesh/"+this->name+"/size/height"));
-  gui->getSlider("Box depth")->setValue(Settings::getFloat("mesh/"+this->name+"/size/depth"));
-  gui->getSlider("Box subdivision")->setValue(Settings::getFloat("mesh/"+this->name+"/size/subdivision"));
-  gui->getSlider("Twist rotation")->setValue(Settings::getFloat("mesh/"+this->name+"/twist/rotation"));
-  materialShininess = Settings::getFloat("mesh/"+this->name+"/material/shininess");
-  materialSpecular = Settings::getFloat("mesh/"+this->name+"/material/specular");
-  materialDiffuseColor = Settings::getColor("mesh/"+this->name+"/material/diffuse-color");
+  gui->loadSettings();
 }
 
 void TestMesh::toggleGUI(){

@@ -13,7 +13,6 @@
 #include "ofxAutoReloadedShader.h"
 #include "LightsHandler.h"
 #include "ofxFirstPersonCamera.h"
-#include "ofxJsonSettings.h"
 
 class TestMesh{
 public:

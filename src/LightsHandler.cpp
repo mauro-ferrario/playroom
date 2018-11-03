@@ -13,7 +13,7 @@ LightsHandler::LightsHandler(){
 }
 
 void LightsHandler::setupGUI(){
-  gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
+  gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT, "light handler" );
   gui->onButtonEvent(this, &LightsHandler::onButtonEvent);
   gui->onSliderEvent(this, &LightsHandler::onSliderEvent);
   gui->onColorPickerEvent(this, &LightsHandler::onColorEvent);
@@ -103,15 +103,11 @@ void LightsHandler::addPointLight(PointLight *pointLight, string lightPos, ofxAu
 }
 
 void LightsHandler::loadSettings(){
-  for (std::vector<Light*>::iterator it = lights.begin() ; it != lights.end(); ++it){
-    (*it)->loadSettings();
-  }
+  gui->loadSettings();
 }
 
 void LightsHandler::saveSettings(){
-  for (std::vector<Light*>::iterator it = lights.begin() ; it != lights.end(); ++it){
-    (*it)->saveSettings();
-  }
+  gui->saveSettings();
 }
 
 void LightsHandler::toggleGUI(){

@@ -32,15 +32,3 @@ void Light::setType(LightTypes type){
 
 void Light::draw(){
 }
-
-void Light::saveSettings(){
-  Settings::getColor("lights/"+nameWithoutSpaces+"/ambient") = ambientPicker->getColor();
-  Settings::getColor("lights/"+nameWithoutSpaces+"/diffuse") = diffusePicker->getColor();
-  Settings::getFloat("lights/"+nameWithoutSpaces+"/specular") = specularSlider->getValue();
-}
-
-void Light::loadSettings(){
-  ambientPicker->setColor(Settings::getColor("lights/"+nameWithoutSpaces+"/ambient"));
-  diffusePicker->setColor(Settings::getColor("lights/"+nameWithoutSpaces+"/diffuse"));
-  specularSlider->setValue(Settings::getFloat("lights/"+nameWithoutSpaces+"/specular"));
-}

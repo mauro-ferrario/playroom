@@ -13,7 +13,6 @@
 #include "Room.h"
 #include "LightsHandler.h"
 #include "ofxFirstPersonCamera.h"
-#include "ofxJsonSettings.h"
 
 class Scene{
 public:

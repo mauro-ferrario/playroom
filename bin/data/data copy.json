@@ -1,0 +1,114 @@
+{
+   "camera" : {
+      "far" : 51644.1796875,
+      "near" : 0.5699999928474426,
+      "position" : {
+         "x" : -2.409501075744629,
+         "y" : 10.64595699310303,
+         "z" : 97.14851379394531
+      },
+      "speed" : 4.920000076293945
+   },
+   "lights" : {
+      "room-directional-light" : {
+         "ambient" : [ 0, 0, 0 ],
+         "diffuse" : [ 231, 1, 104 ],
+         "direction" : {
+            "x" : 0,
+            "y" : 0.2300000041723251,
+            "z" : 0
+         },
+         "specular" : 0
+      },
+      "room-point-light" : {
+         "ambient" : [ 0, 0, 0 ],
+         "attenuation-factor" : 3.849999904632568,
+         "constant" : 1,
+         "diffuse" : [ 231, 149, 0 ],
+         "linear" : 0.1700000017881393,
+         "position" : {
+            "x" : -0.1299999952316284,
+            "y" : 0.2599999904632568,
+            "z" : 0.4900000095367432
+         },
+         "quadratic" : -0.1800000071525574,
+         "specular" : 0.2000000029802322
+      },
+      "room-point-light-2" : {
+         "ambient" : [ 0, 0, 0 ],
+         "attenuation-factor" : 3.769999980926514,
+         "constant" : 0.8399999737739563,
+         "diffuse" : [ 233, 0, 52 ],
+         "linear" : 0.2300000041723251,
+         "position" : {
+            "x" : 0.2300000041723251,
+            "y" : 0.8399999737739563,
+            "z" : 0.5699999928474426
+         },
+         "quadratic" : -0.07000000029802322,
+         "specular" : 0.09000000357627869
+      }
+   },
+   "mesh" : {
+      "Teste mesh 1" : {
+         "material" : {
+            "diffuse-color" : [ 100, 84, 77 ],
+            "shininess" : 2.089999914169312,
+            "specular" : 1
+         },
+         "position" : {
+            "x" : 0,
+            "y" : 0,
+            "z" : -118.0299987792969
+         },
+         "rotation" : {
+            "x" : 0,
+            "y" : 0,
+            "z" : -82.62000274658203
+         },
+         "size" : {
+            "depth" : 43.43999862670898,
+            "height" : 532.7899780273438,
+            "subdivision" : 56.61999893188477,
+            "width" : 31.14999961853027
+         },
+         "twist" : {
+            "rotation" : 227.2100067138672
+         }
+      }
+   },
+   "room" : {
+      "light-movement-factor" : 2,
+      "material" : {
+         "diffuse-color" : [ 225, 201, 193 ],
+         "shininess" : 4.610000133514404,
+         "specular" : 0.09000000357627869
+      },
+      "size" : {
+         "x" : 200,
+         "y" : 75.41000366210938,
+         "z" : 121.3099975585938
+      },
+      "walls" : {
+         "back" : {
+            "show" : false
+         },
+         "bottom" : {
+            "show" : false
+         },
+         "left" : {
+            "show" : false
+         },
+         "right" : {
+            "show" : false
+         },
+         "top" : {
+            "show" : false
+         }
+      }
+   },
+   "time" : {
+      "speed" : 8.520000457763672
+   }
+}
+

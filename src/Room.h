@@ -16,7 +16,6 @@
 #include "PointLight.h"
 #include "DirectionalLight.h"
 #include "ofxFirstPersonCamera.h"
-#include "ofxJsonSettings.h"
 #include "TestMesh.h"
 
 class Room: public ofNode{
