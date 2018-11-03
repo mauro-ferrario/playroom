@@ -11,7 +11,7 @@
       "position-z" : 0,
       "quadratic" : 0,
       "room-directional-light" : {
-         "ambient-color" : [ 159, 159, 159 ],
+         "ambient-color" : [ 0, 0, 0 ],
          "diffuse-color" : [ 0, 0, 0 ],
          "direction-x" : 0,
          "direction-y" : 0,
@@ -75,8 +75,11 @@
    "scene" : {
       "camera-far" : 82788.609375,
       "camera-near" : 0.7400000095367432,
+      "camera-pos-x" : 0,
+      "camera-pos-y" : 0,
+      "camera-pos-z" : 92.34711456298828,
       "camera-speed" : 5.739999771118164,
-      "time-speed" : 10
+      "time-speed" : 6.070000171661377
    },
    "test-mesh" : {
       "box-depth" : 9.840000152587891,
@@ -119,12 +122,12 @@
    },
    "teste-mesh-1" : {
       "material" : {
-         "diffuse-color" : [ 244, 218, 208 ],
+         "diffuse-color" : [ 234, 233, 233 ],
          "material-shininess" : 1.460000038146973,
-         "specular" : 0.2000000029802322
+         "specular" : 0
       },
       "position" : {
-         "pos-x" : 98.36000061035156,
+         "pos-x" : 0,
          "pos-y" : -9.840000152587891,
          "pos-z" : -49.18000030517578
       },
@@ -135,12 +138,12 @@
       },
       "size" : {
          "box-depth" : 5.739999771118164,
-         "box-height" : 204.9199981689453,
-         "box-subdivision" : 86.33999633789062,
-         "box-width" : 5.739999771118164
+         "box-height" : 81.97000122070312,
+         "box-subdivision" : 100,
+         "box-width" : 4.099999904632568
       },
       "twist" : {
-         "twist-rotation" : 360
+         "twist-rotation" : 132.7899932861328
       }
    }
 }

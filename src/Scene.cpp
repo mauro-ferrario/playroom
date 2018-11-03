@@ -37,6 +37,11 @@ void Scene::loadSettings(){
   lightsHandler->loadSettings();
   room.loadSettings();
   
+  ofVec3f camPos;
+  camPos.x = Settings::getFloat("scene/camera-pos-x");
+  camPos.y = Settings::getFloat("scene/camera-pos-y");
+  camPos.z = Settings::getFloat("scene/camera-pos-z");
+  cam.setPosition(camPos);
   cam.setNearClip(gui->getSlider("Camera near")->getValue());
   cam.setFarClip(gui->getSlider("Camera far")->getValue());
   cam.setMovementMaxSpeed(gui->getSlider("Camera speed")->getValue());
@@ -44,6 +49,9 @@ void Scene::loadSettings(){
 }
 
 void Scene::saveSettings(){
+  Settings::getFloat("scene/camera-pos-x") = cam.getPosition().x;
+  Settings::getFloat("scene/camera-pos-y") = cam.getPosition().y;
+  Settings::getFloat("scene/camera-pos-z") = cam.getPosition().z;
   gui->saveSettings();
   room.saveSettings();
   lightsHandler->saveSettings();
