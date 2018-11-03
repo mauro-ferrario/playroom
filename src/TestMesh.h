@@ -39,10 +39,8 @@ private:
   void                    onColorEvent(ofxDatGuiColorPickerEvent e);
   void                    onToggleEvent(ofxDatGuiToggleEvent e);
   ofBoxPrimitive          box;
-  ofColor                 materialDiffuseColor;
-  float                   materialShininess;
-  float                   materialSpecular;
   string                  name;
+  void                    updateBoxSize();
 };
 
 #endif /* TestMesh_hpp */

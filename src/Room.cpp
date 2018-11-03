@@ -12,19 +12,16 @@ Room::Room(){
 }
 
 void Room::setup(int planeSubdivision, int roomWidth, int roomHeight, int roomDepth, LightsHandler* lightsHandler){
-  this->planeSubdivision = planeSubdivision;
-  this->roomSize = ofVec3f(roomWidth, roomHeight, roomDepth);
   if(lightsHandler != NULL){
     this->lightsHandler = lightsHandler;
     testMesh.setLightsHandler(lightsHandler);
   }
-  lightMovementFactor = 1.5;
+  this->planeSubdivision = planeSubdivision;
   testMesh.setup("Teste mesh 1");
-  setupGUI();
+  setupGUI(roomWidth, roomHeight, roomDepth);
   loadShader();
   setupLights();
   updateRoomWalls();
-//  loadSettings();
 }
 
 void Room::setupLights(){
@@ -47,7 +44,7 @@ void Room::setLightHandler(LightsHandler* lightsHandler){
   testMesh.setLightsHandler(lightsHandler);
 }
 
-void Room::setupGUI(){
+void Room::setupGUI(int roomWidth, int roomHeight, int roomDepth){
   gui = new ofxDatGui( ofxDatGuiAnchor::TOP_LEFT, "room");
   ofxDatGuiFolder* sizeFolder = gui->addFolder("Room size", ofColor::blue);
   ofxDatGuiFolder* wallsFolder = gui->addFolder("Room walls", ofColor::blue);
@@ -55,9 +52,9 @@ void Room::setupGUI(){
   
   // Room size
   
-  sizeFolder->addSlider("Room width", 0, 200, roomSize.x);
-  sizeFolder->addSlider("Room height", 0, 200, roomSize.y);
-  sizeFolder->addSlider("Room depth", 0, 200, roomSize.z);
+  sizeFolder->addSlider("Room width", 0, 200, roomWidth);
+  sizeFolder->addSlider("Room height", 0, 200, roomHeight);
+  sizeFolder->addSlider("Room depth", 0, 200, roomDepth);
 
   wallsFolder->addToggle("Show back", true);
   wallsFolder->addToggle("Show left", true);
@@ -65,7 +62,7 @@ void Room::setupGUI(){
   wallsFolder->addToggle("Show top", true);
   wallsFolder->addToggle("Show bottom", true);
 
-  sizeFolder->addSlider("Light movement factor", 0, 2, lightMovementFactor);
+  sizeFolder->addSlider("Light movement factor", 0, 2, 1.6);
   
   // Material props
   
@@ -81,55 +78,22 @@ void Room::setupGUI(){
 void Room::onColorEvent(ofxDatGuiColorPickerEvent e)
 {
   string label =  e.target->getLabel();
-  
-  // Material
-  
-  if(label == "Diffuse Color"){
-    materialDiffuseColor = e.target->getColor();
-  }
 }
 
 void Room::onSliderEvent(ofxDatGuiSliderEvent e)
 {
   string label =  e.target->getLabel();
-  bool updateRoomSize = false;
-  
-  if(label == "Room width"){
-    roomSize.x = e.target->getValue();
-    updateRoomSize = true;
-  }
-  if(label == "Room height"){
-    roomSize.y = e.target->getValue();
-    updateRoomSize = true;
-  }
-  if(label == "Room depth"){
-    roomSize.z = e.target->getValue();
-    updateRoomSize = true;
-  }
-  
-  if(label == "Light movement factor"){
-    lightMovementFactor = e.target->getValue();
-    updateRoomSize = true;
-  }
-  
-  // Color material
-  
-  if(label == "Material Shininess"){
-    materialShininess = e.target->getValue();
-  }
-  if(label == "Specular"){
-    materialSpecular = e.target->getValue();
-  }
-  
-  if(updateRoomSize)
-    updateRoomWalls();
+  updateRoomWalls();
 }
 
 void Room::onToggleEvent(ofxDatGuiToggleEvent e){
-  
 }
 
 void Room::updateRoomWalls(){
+  ofVec3f roomSize;
+  roomSize.x = gui->getSlider("Room width")->getValue();
+  roomSize.y = gui->getSlider("Room height")->getValue();
+  roomSize.z = gui->getSlider("Room depth")->getValue();
   back.set(roomSize.x, roomSize.y, this->planeSubdivision, this->planeSubdivision);
   left.set(roomSize.z, roomSize.y, this->planeSubdivision, this->planeSubdivision);
   right.set(roomSize.z, roomSize.y, this->planeSubdivision, this->planeSubdivision);
@@ -150,8 +114,8 @@ void Room::updateRoomWalls(){
   maxMovement.x = -roomSize.x*0.5;
   maxMovement.y = -roomSize.y*0.5;
   maxMovement.z = -roomSize.z;
-  maxMovement *= lightMovementFactor;
-  minMovement *= lightMovementFactor;
+  maxMovement *= gui->getSlider("Light movement factor")->getValue();
+  minMovement *= gui->getSlider("Light movement factor")->getValue();
   pointLight->setMovement(minMovement, maxMovement);
   pointLight2->setMovement(minMovement, maxMovement);
 }
@@ -213,10 +177,12 @@ void Room::drawFace(ofPlanePrimitive& face, ofxFirstPersonCamera& cam, float tim
 }
 
 void Room::addMaterial(ofxAutoReloadedShader shader){
+  float materialSpecular = gui->getSlider( "Specular")->getValue();
+  ofColor materialDiffuseColor = gui->getColorPicker("Diffuse Color")->getColor();
   // Material
   shader.setUniform3f("material.diffuse", materialDiffuseColor.r/255.0, materialDiffuseColor.g/255.0, materialDiffuseColor.b/255.0);
   shader.setUniform3f("material.specular", materialSpecular, materialSpecular, materialSpecular);
-  shader.setUniform1f("material.shininess",  pow(2, (int)materialShininess));
+  shader.setUniform1f("material.shininess",  pow(2, (int) gui->getSlider( "Material Shininess")->getValue()));
 }
 
 void Room::addLights(ofxAutoReloadedShader shader, ofxFirstPersonCamera& cam){
@@ -253,8 +219,8 @@ void Room::saveSettings(){
 
 void Room::loadSettings(){
   gui->loadSettings();
-  updateRoomWalls();
   testMesh.loadSettings();
+  updateRoomWalls();
 }
 
 void Room::toggleGUI(){

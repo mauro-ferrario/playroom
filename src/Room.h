@@ -22,7 +22,7 @@ class Room: public ofNode{
 public:
                         Room();
   void                  setup(int planeSubdivision = 200, int roomWidth = 100, int roomHeight = 50, int roomDepth = 50, LightsHandler* lightsHandler = NULL);
-  void                  setupGUI();
+  void                  setupGUI(int roomWidth = 100, int roomHeight = 50, int roomDepth = 50);
   void                  customDraw(ofxFirstPersonCamera& cam, float time);
   void                  setLightHandler(LightsHandler* lightsHandler);
   void                  saveSettings();
@@ -41,13 +41,9 @@ private:
   void                  setupLights();
   
   LightsHandler*        lightsHandler;
-  float                 lightMovementFactor;
   
   // Material
   void                  addMaterial(ofxAutoReloadedShader shader);
-  ofColor               materialDiffuseColor;
-  float                 materialShininess;
-  float                 materialSpecular;
   
   ofxAutoReloadedShader shader;
   
@@ -57,7 +53,6 @@ private:
   ofPlanePrimitive      bottom;
   ofPlanePrimitive      top;
   ofxDatGui*            gui;
-  ofVec3f               roomSize;
   void                  onSliderEvent(ofxDatGuiSliderEvent e);
   void                  onColorEvent(ofxDatGuiColorPickerEvent e);
   void                  onToggleEvent(ofxDatGuiToggleEvent e);

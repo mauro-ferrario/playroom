@@ -13,13 +13,6 @@ Scene::Scene(){
   cam.setNearClip(.01);
   cam.setFarClip(100000);
   cam.setMovementMaxSpeed(10.0);
-  
-  ofVec3f camPosition;
-//  camPosition.x = Settings::getFloat("camera/position/x");
-//  camPosition.y = Settings::getFloat("camera/position/y");
-//  camPosition.z = Settings::getFloat("camera/position/z");
-  cam.setPosition(camPosition);
-  
   setupGUI();
   lightsHandler = new LightsHandler();
   room.setLightHandler(lightsHandler);
@@ -43,6 +36,11 @@ void Scene::loadSettings(){
   gui->loadSettings("data.json");
   lightsHandler->loadSettings();
   room.loadSettings();
+  
+  cam.setNearClip(gui->getSlider("Camera near")->getValue());
+  cam.setFarClip(gui->getSlider("Camera far")->getValue());
+  cam.setMovementMaxSpeed(gui->getSlider("Camera speed")->getValue());
+  timeSpeed = gui->getSlider("Time speed")->getValue();
 }
 
 void Scene::saveSettings(){

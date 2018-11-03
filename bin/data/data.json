@@ -11,7 +11,7 @@
       "position-z" : 0,
       "quadratic" : 0,
       "room-directional-light" : {
-         "ambient-color" : [ 0, 0, 0 ],
+         "ambient-color" : [ 159, 159, 159 ],
          "diffuse-color" : [ 0, 0, 0 ],
          "direction-x" : 0,
          "direction-y" : 0,
@@ -25,7 +25,7 @@
          "diffuse-color" : [ 225, 0, 84 ],
          "draw" : false,
          "linear" : 0,
-         "position-x" : -0.4300000071525574,
+         "position-x" : -0.4099999964237213,
          "position-y" : -0.1800000071525574,
          "position-z" : 0.300000011920929,
          "quadratic" : 0,
@@ -52,15 +52,15 @@
       "room-depth" : 50,
       "room-height" : 50,
       "room-material" : {
-         "diffuse-color" : [ 255, 127, 79 ],
-         "material-shininess" : 3.75,
-         "specular" : 0.5
+         "diffuse-color" : [ 214, 5, 7 ],
+         "material-shininess" : 1,
+         "specular" : 1
       },
       "room-size" : {
-         "light-movement-factor" : 1.5,
-         "room-depth" : 50,
+         "light-movement-factor" : 1.029999971389771,
+         "room-depth" : 90.16000366210938,
          "room-height" : 50,
-         "room-width" : 200
+         "room-width" : 193.4400024414062
       },
       "room-walls" : {
          "show-back" : true,
@@ -73,10 +73,10 @@
       "specular" : 0.5
    },
    "scene" : {
-      "camera-far" : 40989.51171875,
+      "camera-far" : 82788.609375,
       "camera-near" : 0.7400000095367432,
       "camera-speed" : 5.739999771118164,
-      "time-speed" : 1.720000028610229
+      "time-speed" : 10
    },
    "test-mesh" : {
       "box-depth" : 9.840000152587891,
@@ -119,12 +119,12 @@
    },
    "teste-mesh-1" : {
       "material" : {
-         "diffuse-color" : [ 225, 211, 206 ],
-         "material-shininess" : 4.670000076293945,
-         "specular" : 0.6000000238418579
+         "diffuse-color" : [ 244, 218, 208 ],
+         "material-shininess" : 1.460000038146973,
+         "specular" : 0.2000000029802322
       },
       "position" : {
-         "pos-x" : 0,
+         "pos-x" : 98.36000061035156,
          "pos-y" : -9.840000152587891,
          "pos-z" : -49.18000030517578
       },
@@ -135,12 +135,12 @@
       },
       "size" : {
          "box-depth" : 5.739999771118164,
-         "box-height" : 163.9299926757812,
+         "box-height" : 204.9199981689453,
          "box-subdivision" : 86.33999633789062,
-         "box-width" : 8.199999809265137
+         "box-width" : 5.739999771118164
       },
       "twist" : {
-         "twist-rotation" : 298.0299987792969
+         "twist-rotation" : 360
       }
    }
 }

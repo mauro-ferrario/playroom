@@ -18,11 +18,19 @@ void TestMesh::setup(string name){
 }
 
 void TestMesh::draw(ofxFirstPersonCamera& cam, float time){
+  ofVec3f tempPosition;
+  ofVec3f tempRotation;
+  tempPosition.x = gui->getSlider("Pos x")->getValue();
+  tempPosition.y = gui->getSlider("Pos y")->getValue();
+  tempPosition.z = gui->getSlider("Pos z")->getValue();
+  tempRotation.x = gui->getSlider("Rotation x")->getValue();
+  tempRotation.y = gui->getSlider("Rotation y")->getValue();
+  tempRotation.z = gui->getSlider("Rotation z")->getValue();
   ofPushMatrix();
-  ofTranslate(position);
-  ofRotateXDeg(rotation.x);
-  ofRotateYDeg(rotation.y);
-  ofRotateZDeg(rotation.z);
+  ofTranslate(tempPosition);
+  ofRotateXDeg(tempRotation.x);
+  ofRotateYDeg(tempRotation.y);
+  ofRotateZDeg(tempRotation.z);
   shader.begin();
   shader.setUniformMatrix4f("normalMatrix", ofGetCurrentNormalMatrix());
   shader.setUniform1i("doTwist", 1);
@@ -39,10 +47,12 @@ void TestMesh::draw(ofxFirstPersonCamera& cam, float time){
 }
 
 void TestMesh::addMaterial(ofxAutoReloadedShader shader){
+  float materialSpecular = gui->getSlider("Specular")->getValue();
+  ofColor materialDiffuseColor = gui->getColorPicker( "Diffuse Color")->getColor();
   // Material
   shader.setUniform3f("material.diffuse", materialDiffuseColor.r/255.0, materialDiffuseColor.g/255.0, materialDiffuseColor.b/255.0);
   shader.setUniform3f("material.specular", materialSpecular, materialSpecular, materialSpecular);
-  shader.setUniform1f("material.shininess",  pow(2, (int)materialShininess));
+  shader.setUniform1f("material.shininess",  pow(2, (int) gui->getSlider("Material Shininess")->getValue()));
 }
 
 void TestMesh::setLightsHandler(LightsHandler* lightsHandler){
@@ -95,7 +105,6 @@ void TestMesh::setupGUI(){
 
 void TestMesh::onSliderEvent(ofxDatGuiSliderEvent e){
   string label =  e.target->getLabel();
-  bool changeBoxSize = false;
   ofVec3f boxSize;
   boxSize.x = box.getWidth();
   boxSize.y = box.getHeight();
@@ -121,46 +130,20 @@ void TestMesh::onSliderEvent(ofxDatGuiSliderEvent e){
   if(label == "Rotation z"){
     rotation.z = e.target->getValue();
   }
-  
-  if(label == "Box width"){
-    boxSize.x = e.target->getValue();
-    changeBoxSize = true;
-  }
-  if(label == "Box height"){
-    boxSize.y = e.target->getValue();
-    changeBoxSize = true;
-  }
-  if(label == "Box depth"){
-    boxSize.z = e.target->getValue();
-    changeBoxSize = true;
-  }
-  if(label == "Box subdivision"){
-    boxSubdivision = e.target->getValue();
-    changeBoxSize = true;
-  }
-  
-  // Color material
-  
-  if(label == "Material Shininess"){
-    materialShininess = e.target->getValue();
-  }
-  if(label == "Specular"){
-    materialSpecular = e.target->getValue();
-  }
-  
-  if(changeBoxSize){
-    box.set(boxSize.x, boxSize.y, boxSize.z, boxSubdivision, boxSubdivision, boxSubdivision);
-  }
+  updateBoxSize();
+}
+
+void TestMesh::updateBoxSize(){
+  ofVec3f boxSize;
+  boxSize.x = gui->getSlider("Box width")->getValue();
+  boxSize.y = gui->getSlider("Box height")->getValue();
+  boxSize.z = gui->getSlider("Box depth")->getValue();
+  float boxSubdivision = gui->getSlider("Box subdivision")->getValue();
+  box.set(boxSize.x, boxSize.y, boxSize.z, boxSubdivision, boxSubdivision, boxSubdivision);
 }
 
 void TestMesh::onColorEvent(ofxDatGuiColorPickerEvent e){
   string label =  e.target->getLabel();
-  
-  // Material
-  
-  if(label == "Diffuse Color"){
-    materialDiffuseColor = e.target->getColor();
-  }
 }
 
 void TestMesh::onToggleEvent(ofxDatGuiToggleEvent e){
@@ -173,6 +156,7 @@ void TestMesh::saveSettings(){
 
 void TestMesh::loadSettings(){
   gui->loadSettings();
+  updateBoxSize();
 }
 
 void TestMesh::toggleGUI(){
