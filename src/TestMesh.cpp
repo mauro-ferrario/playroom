@@ -10,11 +10,16 @@
 TestMesh::TestMesh(){
 }
 
-void TestMesh::setup(string name){
+void TestMesh::setup(ofMesh _mesh, string name){
+  updateOriginalMesh(_mesh);
   this->name = name;
   loadShader();
-  box.set(10, 30, 10, 50, 50, 50);
   setupGUI();
+}
+
+void TestMesh::updateOriginalMesh(ofMesh _mesh){
+  this->originalMesh.clear();
+  this->originalMesh = _mesh;
 }
 
 void TestMesh::draw(ofxFirstPersonCamera& cam, float time){
@@ -33,15 +38,16 @@ void TestMesh::draw(ofxFirstPersonCamera& cam, float time){
   ofRotateZDeg(tempRotation.z);
   shader.begin();
   shader.setUniformMatrix4f("normalMatrix", ofGetCurrentNormalMatrix());
-  shader.setUniform1i("doTwist", 1);
+  shader.setUniform1i("doTwist", gui->getToggle("Do twist")->getChecked());
   shader.setUniform1f("time", time);
-  shader.setUniformMatrix4f("model", box.getGlobalTransformMatrix());
+//  shader.setUniformMatrix4f("model", box.getGlobalTransformMatrix());
   shader.setUniform3f("viewPos", cam.getGlobalPosition());
   shader.setUniform1f("angle_deg_max", gui->getSlider("Twist rotation")->getValue());
-  shader.setUniform1f("height", box.getHeight());
+//  shader.setUniform1f("height", box.getHeight());
+  shader.setUniform1f("height", 30);
   lightsHandler->passLightsToShader(shader, cam);
   addMaterial(shader);
-  box.getMesh().drawFaces();
+  vbo.drawElements(GL_TRIANGLES, vboTotIndex);
   shader.end();
   ofPopMatrix();
 }
@@ -69,7 +75,6 @@ void TestMesh::setupGUI(){
   ofxDatGuiFolder* positionFolder = gui->addFolder("Position", ofColor::blue);
   ofxDatGuiFolder* rotationFolder = gui->addFolder("Rotation", ofColor::blue);
   ofxDatGuiFolder* textureFolder = gui->addFolder("Material", ofColor::blue);
-  ofxDatGuiFolder* boxSizeFolder = gui->addFolder("Size", ofColor::blue);
   ofxDatGuiFolder* twistFolder = gui->addFolder("Twist", ofColor::blue);
   
   positionFolder->addSlider("Pos x", -600, 600);
@@ -82,14 +87,8 @@ void TestMesh::setupGUI(){
   
   // Twist
   
+  twistFolder->addToggle("Do twist", false);
   twistFolder->addSlider("Twist rotation", 0, 360);
-  
-  // Size
-  
-  boxSizeFolder->addSlider("Box width", 0, 100);
-  boxSizeFolder->addSlider("Box height", 0, 5000);
-  boxSizeFolder->addSlider("Box depth", 0, 100);
-  boxSizeFolder->addSlider("Box subdivision", 2, 100);
   
   // Material props
   
@@ -105,11 +104,7 @@ void TestMesh::setupGUI(){
 
 void TestMesh::onSliderEvent(ofxDatGuiSliderEvent e){
   string label =  e.target->getLabel();
-  ofVec3f boxSize;
-  boxSize.x = box.getWidth();
-  boxSize.y = box.getHeight();
-  boxSize.z = box.getDepth();
-  int boxSubdivision = box.getResolution().x;
+  int boxSubdivision; // = box.getResolution().x;
   
   if(label == "Pos x"){
     position.x = e.target->getValue();
@@ -130,16 +125,11 @@ void TestMesh::onSliderEvent(ofxDatGuiSliderEvent e){
   if(label == "Rotation z"){
     rotation.z = e.target->getValue();
   }
-  updateBoxSize();
 }
 
-void TestMesh::updateBoxSize(){
-  ofVec3f boxSize;
-  boxSize.x = gui->getSlider("Box width")->getValue();
-  boxSize.y = gui->getSlider("Box height")->getValue();
-  boxSize.z = gui->getSlider("Box depth")->getValue();
-  float boxSubdivision = gui->getSlider("Box subdivision")->getValue();
-  box.set(boxSize.x, boxSize.y, boxSize.z, boxSubdivision, boxSubdivision, boxSubdivision);
+void TestMesh::updateMesh(){
+  vbo.setMesh(originalMesh, GL_STATIC_DRAW);
+  vboTotIndex = originalMesh.getNumIndices();
 }
 
 void TestMesh::onColorEvent(ofxDatGuiColorPickerEvent e){
@@ -156,7 +146,7 @@ void TestMesh::saveSettings(){
 
 void TestMesh::loadSettings(){
   gui->loadSettings();
-  updateBoxSize();
+  updateMesh();
 }
 
 void TestMesh::toggleGUI(){

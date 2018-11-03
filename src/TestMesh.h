@@ -17,15 +17,18 @@
 class TestMesh{
 public:
                           TestMesh();
-  void                    setup(string name);
+  void                    setup(ofMesh _mesh, string name);
   void                    draw(ofxFirstPersonCamera& cam, float time);
-  void                    setupGUI();
+  virtual void            setupGUI();
   void                    loadShader();
   void                    setLightsHandler(LightsHandler* lightsHandler);
   void                    addMaterial(ofxAutoReloadedShader shader);
   ofxDatGui*              gui;
   LightsHandler*          lightsHandler;
   ofxAutoReloadedShader   shader;
+  ofVbo                   vbo;
+  int                     vboTotIndex;
+  ofMesh                  originalMesh;
   
   ofVec3f                 position;
   ofVec3f                 rotation;
@@ -33,14 +36,17 @@ public:
   void                    loadSettings();
   void                    toggleGUI();
 
+protected:
+  float                   height;
+  virtual void            onSliderEvent(ofxDatGuiSliderEvent e);
+  virtual void            onColorEvent(ofxDatGuiColorPickerEvent e);
+  virtual void            onToggleEvent(ofxDatGuiToggleEvent e);
+  virtual void            updateMesh();
+  void                    updateOriginalMesh(ofMesh _mesh);
+
 private:
   
-  void                    onSliderEvent(ofxDatGuiSliderEvent e);
-  void                    onColorEvent(ofxDatGuiColorPickerEvent e);
-  void                    onToggleEvent(ofxDatGuiToggleEvent e);
-  ofBoxPrimitive          box;
   string                  name;
-  void                    updateBoxSize();
 };
 
 #endif /* TestMesh_hpp */

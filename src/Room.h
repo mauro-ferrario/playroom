@@ -17,6 +17,7 @@
 #include "DirectionalLight.h"
 #include "ofxFirstPersonCamera.h"
 #include "TestMesh.h"
+#include "BoxTestMesh.h"
 
 class Room: public ofNode{
 public:
@@ -64,6 +65,7 @@ private:
   PointLight*           pointLight2;
   
   TestMesh              testMesh;
+  BoxTestMesh           boxTestMesh;
   
   
 };

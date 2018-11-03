@@ -137,13 +137,14 @@
          "rotation-z" : -90
       },
       "size" : {
-         "box-depth" : 5.739999771118164,
+         "box-depth" : 34.43000030517578,
          "box-height" : 81.97000122070312,
          "box-subdivision" : 100,
          "box-width" : 4.099999904632568
       },
       "twist" : {
-         "twist-rotation" : 132.7899932861328
+         "do-twist" : true,
+         "twist-rotation" : 32.45999908447266
       }
    }
 }
