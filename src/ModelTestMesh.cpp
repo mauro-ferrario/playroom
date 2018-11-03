@@ -12,7 +12,8 @@ ModelTestMesh::ModelTestMesh(){
 }
 
 void ModelTestMesh::setup(string name){
-  model.loadModel("penguin.obj");
+  ofDisableArbTex();
+  model.loadModel("penguin.3ds");
   updateScale(1.0);
   TestMesh::setup(modelMesh, name);
 }
@@ -29,6 +30,12 @@ void ModelTestMesh::onSliderEvent(ofxDatGuiSliderEvent e){
   updateMesh();
 }
 
+void ModelTestMesh::addMaterial(ofxAutoReloadedShader shader){
+  TestMesh::addMaterial(shader);
+  shader.setUniform1i("material.useDiffuseTexture", 1);
+  shader.setUniformTexture("material.diffuseTexture",  model.getTextureForMesh(0), 0);
+}
+
 void ModelTestMesh::updateScale(float newScale){
   modelMesh = model.getMesh(0);
   for( int i = 0; i < modelMesh.getNumVertices(); i++ ) {
@@ -39,7 +46,7 @@ void ModelTestMesh::updateScale(float newScale){
 void ModelTestMesh::updateMesh(){
   updateScale(gui->getSlider("Model original scale")->getValue());
   updateOriginalMesh(modelMesh);
-  height = 100;
+  height = gui->getSlider("Model original scale")->getValue();
   TestMesh::updateMesh();
 }
 

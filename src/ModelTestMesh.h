@@ -18,6 +18,7 @@ public:
   void                  setupGUI();
   void                  onSliderEvent(ofxDatGuiSliderEvent e);
   void                  updateMesh();
+  void                  addMaterial(ofxAutoReloadedShader shader);
   
 private:
   void                  updateBoxSize();

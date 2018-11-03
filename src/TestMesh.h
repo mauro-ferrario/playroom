@@ -22,7 +22,7 @@ public:
   virtual void            setupGUI();
   void                    loadShader();
   void                    setLightsHandler(LightsHandler* lightsHandler);
-  void                    addMaterial(ofxAutoReloadedShader shader);
+  virtual void            addMaterial(ofxAutoReloadedShader shader);
   ofxDatGui*              gui;
   LightsHandler*          lightsHandler;
   ofxAutoReloadedShader   shader;

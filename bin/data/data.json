@@ -20,12 +20,12 @@
       },
       "room-point-light" : {
          "ambient-color" : [ 0, 0, 0 ],
-         "attenuation-factor" : 0.4099999964237213,
+         "attenuation-factor" : 0.1599999964237213,
          "constant" : 1,
          "diffuse-color" : [ 225, 0, 84 ],
          "draw" : false,
          "linear" : 0,
-         "position-x" : -0.2599999904632568,
+         "position-x" : -0.3100000023841858,
          "position-y" : -0.1000000014901161,
          "position-z" : 0.2000000029802322,
          "quadratic" : 0,
@@ -33,16 +33,16 @@
       },
       "room-point-light-2" : {
          "ambient-color" : [ 0, 0, 0 ],
-         "attenuation-factor" : 0.4900000095367432,
+         "attenuation-factor" : 0.4099999964237213,
          "constant" : 1,
          "diffuse-color" : [ 28, 102, 176 ],
          "draw" : false,
-         "linear" : 0,
+         "linear" : 0.07999999821186066,
          "position-x" : -0.1099999994039536,
          "position-y" : -0.07000000029802322,
          "position-z" : 0.5899999737739563,
          "quadratic" : 0,
-         "specular" : 0.6800000071525574
+         "specular" : 1
       },
       "specular" : 0
    },
@@ -75,9 +75,9 @@
    "scene" : {
       "camera-far" : 82788.609375,
       "camera-near" : 0.7400000095367432,
-      "camera-pos-x" : -11.26265335083008,
+      "camera-pos-x" : -13.59073066711426,
       "camera-pos-y" : -0.8857749104499817,
-      "camera-pos-z" : 74.64063262939453,
+      "camera-pos-z" : 39.71949768066406,
       "camera-speed" : 2.460000038146973,
       "time-speed" : 7.300000190734863
    },
@@ -121,31 +121,31 @@
       "twist-rotation" : 0
    },
    "test-mesh-1" : {
-      "enabled" : false,
+      "enabled" : true,
       "material" : {
          "diffuse-color" : [ 234, 233, 233 ],
          "material-shininess" : 1.460000038146973,
          "specular" : 0
       },
       "position" : {
-         "pos-x" : 0,
+         "pos-x" : -29.51000022888184,
          "pos-y" : -9.840000152587891,
          "pos-z" : -49.18000030517578
       },
       "rotation" : {
-         "rotation-x" : 0,
-         "rotation-y" : 0,
+         "rotation-x" : 70.81999969482422,
+         "rotation-y" : 90,
          "rotation-z" : -90
       },
       "size" : {
-         "box-depth" : 34.43000030517578,
-         "box-height" : 81.97000122070312,
+         "box-depth" : 4.920000076293945,
+         "box-height" : 40.97999954223633,
          "box-subdivision" : 100,
-         "box-width" : 4.099999904632568
+         "box-width" : 5.739999771118164
       },
       "twist" : {
          "do-twist" : true,
-         "twist-rotation" : 32.45999908447266
+         "twist-rotation" : 82.62000274658203
       }
    },
    "test-model" : {
@@ -168,7 +168,7 @@
       },
       "twist" : {
          "do-twist" : false,
-         "twist-rotation" : 182.9499969482422
+         "twist-rotation" : 259.6700134277344
       }
    }
 }

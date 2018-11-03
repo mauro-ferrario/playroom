@@ -39,6 +39,8 @@ struct Material {
   vec3 diffuse;
   vec3 specular;
   float shininess;
+  int  useDiffuseTexture;
+  sampler2D diffuseTexture;
 };
 
 uniform Material material;
@@ -84,6 +86,8 @@ vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
   // combine results
   vec3 ambient  = light.ambient * material.diffuse;
   vec3 diffuse  = light.diffuse * diff * material.diffuse;
+  if(material.useDiffuseTexture == 1)
+    diffuse = light.diffuse * diff * vec3(texture(material.diffuseTexture, TexCoords));
   vec3 specular = light.specular * spec * material.specular;
   return (ambient + diffuse + specular);
 }
@@ -109,6 +113,8 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
   // combine results
   vec3 ambient  = light.ambient  * material.diffuse;
   vec3 diffuse  = light.diffuse  * diff * material.diffuse;
+  if(material.useDiffuseTexture == 1)
+    diffuse = light.diffuse * diff * vec3(texture(material.diffuseTexture, TexCoords));
   vec3 specular = light.specular * spec * material.specular;
   attenuation *= light.attenuationFactor*1000.0;
   
