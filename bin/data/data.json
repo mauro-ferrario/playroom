@@ -73,11 +73,11 @@
       "specular" : 0.5
    },
    "scene" : {
-      "camera-far" : 82788.609375,
-      "camera-near" : 0.7400000095367432,
-      "camera-pos-x" : -13.59073066711426,
-      "camera-pos-y" : -0.8857749104499817,
-      "camera-pos-z" : 39.71949768066406,
+      "camera-far" : 84427.7890625,
+      "camera-near" : 0.8199999928474426,
+      "camera-pos-x" : 22.2335262298584,
+      "camera-pos-y" : 15.87035465240479,
+      "camera-pos-z" : 182.5182342529297,
       "camera-speed" : 2.460000038146973,
       "time-speed" : 7.300000190734863
    },
