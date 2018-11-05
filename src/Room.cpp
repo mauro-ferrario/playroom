@@ -41,7 +41,7 @@ void Room::setupLights(){
 }
 
 void Room::loadShader(){
-  shader.load("shaders/room");
+  shader.load("shaders/testMesh");
 }
 
 void Room::setLightHandler(LightsHandler* lightsHandler){
@@ -127,60 +127,64 @@ void Room::updateRoomWalls(){
   pointLight2->setMovement(minMovement, maxMovement);
 }
 
-void Room::drawBack(ofxFirstPersonCamera& cam, float time){
+void Room::drawBack(ofxFirstPersonCamera& cam, float time, bool useShader){
   ofPushMatrix();
   ofTranslate(back.getPosition());
   ofSetColor(255,255,0);
-  drawFace(back, cam, time);
+  drawFace(back, cam, time, useShader);
   ofPopMatrix();
 }
 
-void Room::drawRight(ofxFirstPersonCamera& cam, float time){
+void Room::drawRight(ofxFirstPersonCamera& cam, float time, bool useShader){
   ofPushMatrix();
   ofTranslate(right.getPosition());
   ofRotateYDeg(-90);
   ofSetColor(255);
-  drawFace(right, cam, time);
+  drawFace(right, cam, time, useShader);
   ofPopMatrix();
 }
 
-void Room::drawLeft(ofxFirstPersonCamera& cam, float time){
+void Room::drawLeft(ofxFirstPersonCamera& cam, float time, bool useShader){
   ofPushMatrix();
   ofTranslate(left.getPosition());
   ofRotateYDeg(90);
   ofSetColor(255,0,0);
-  drawFace(left, cam, time);
+  drawFace(left, cam, time, useShader);
   ofPopMatrix();
 }
 
-void Room::drawBottom(ofxFirstPersonCamera& cam, float time){
+void Room::drawBottom(ofxFirstPersonCamera& cam, float time, bool useShader){
   ofPushMatrix();
   ofTranslate(bottom.getPosition());
   ofRotateXDeg(-90);
   ofSetColor(255);
-  drawFace(bottom, cam, time);
+  drawFace(bottom, cam, time, useShader);
   ofPopMatrix();
 }
 
-void Room::drawTop(ofxFirstPersonCamera& cam, float time){
+void Room::drawTop(ofxFirstPersonCamera& cam, float time, bool useShader){
   ofPushMatrix();
   ofTranslate(top.getPosition());
   ofRotateXDeg(90);
   ofSetColor(255);
-  drawFace(top, cam, time);
+  drawFace(top, cam, time, useShader);
   ofPopMatrix();
 }
 
-void Room::drawFace(ofPlanePrimitive& face, ofxFirstPersonCamera& cam, float time){
-  shader.begin();
-  shader.setUniform1i("doTwist", 0);
-  shader.setUniform1f("time", time);
-  shader.setUniformMatrix4f("model", face.getGlobalTransformMatrix());
-  shader.setUniform3f("viewPos", cam.getGlobalPosition());
-  addLights(shader, cam);
-  addMaterial(shader);
+void Room::drawFace(ofPlanePrimitive& face, ofxFirstPersonCamera& cam, float time, bool useShader){
+  if(useShader){
+    shader.begin();
+    shader.setUniform1i("doTwist", 0);
+    shader.setUniform1f("time", time);
+    shader.setUniformMatrix4f("model", face.getGlobalTransformMatrix());
+    shader.setUniform3f("viewPos", cam.getGlobalPosition());
+    addLights(shader, cam);
+    addMaterial(shader);
+  }
   face.getMesh().drawFaces();
-  shader.end();
+  if(useShader){
+    shader.end();
+  }
 }
 
 void Room::addMaterial(ofxAutoReloadedShader shader){
@@ -196,17 +200,17 @@ void Room::addLights(ofxAutoReloadedShader shader, ofxFirstPersonCamera& cam){
   lightsHandler->passLightsToShader(shader, cam);
 }
 
-void Room::customDraw(ofxFirstPersonCamera& cam, float time){
+void Room::customDraw(ofxFirstPersonCamera& cam, float time, bool useShader){
   if(gui->getToggle("Show back")->getChecked())
-    drawBack(cam, time);
+    drawBack(cam, time, useShader);
   if(gui->getToggle("Show bottom")->getChecked())
-    drawBottom(cam, time);
+    drawBottom(cam, time, useShader);
   if(gui->getToggle("Show top")->getChecked())
-    drawTop(cam, time);
+    drawTop(cam, time, useShader);
   if(gui->getToggle("Show left")->getChecked())
-    drawLeft(cam, time);
+    drawLeft(cam, time, useShader);
   if(gui->getToggle("Show right")->getChecked())
-    drawRight(cam, time);
+    drawRight(cam, time, useShader);
   
    // Devo fare un ciclo  fra tutti gli oggetti aggiunti
   boxTestMesh.draw(cam, time);

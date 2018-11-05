@@ -137,6 +137,8 @@
 		A9871FF6218DDFA0002F8777 /* ModelTestMesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelTestMesh.h; sourceTree = "<group>"; };
 		A9903BD4218B7B9A00EFCE1E /* room.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = room.vert; sourceTree = "<group>"; };
 		A9903BD5218B7B9A00EFCE1E /* room.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = room.frag; sourceTree = "<group>"; };
+		A9ECA08D218FAF2800C7D572 /* shadowMap.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shadowMap.frag; sourceTree = "<group>"; };
+		A9ECA08E218FAF2900C7D572 /* shadowMap.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shadowMap.vert; sourceTree = "<group>"; };
 		AAD9C4D0A605AEE0501AF160 /* Room.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Room.h; path = src/Room.h; sourceTree = SOURCE_ROOT; };
 		ADAE582E4696B9BD64E5B2B8 /* IOSystem.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = IOSystem.hpp; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/assimp/IOSystem.hpp; sourceTree = SOURCE_ROOT; };
 		AED6F84D8DABA623CAF59F13 /* color4.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = color4.h; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/assimp/color4.h; sourceTree = SOURCE_ROOT; };
@@ -415,6 +417,8 @@
 				A9903BD5218B7B9A00EFCE1E /* room.frag */,
 				A901246D218CDB4C00B0D870 /* testMesh.frag */,
 				A901246E218CDB4C00B0D870 /* testMesh.vert */,
+				A9ECA08D218FAF2800C7D572 /* shadowMap.frag */,
+				A9ECA08E218FAF2900C7D572 /* shadowMap.vert */,
 			);
 			name = shaders;
 			path = bin/data/shaders;

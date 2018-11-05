@@ -18,7 +18,7 @@ class TestMesh{
 public:
                           TestMesh();
   void                    setup(ofMesh _mesh, string name);
-  void                    draw(ofxFirstPersonCamera& cam, float time);
+  void                    draw(ofxFirstPersonCamera& cam, float time, bool useShader = true);
   virtual void            setupGUI();
   void                    loadShader();
   void                    setLightsHandler(LightsHandler* lightsHandler);

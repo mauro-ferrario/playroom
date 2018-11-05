@@ -25,20 +25,20 @@ public:
                         Room();
   void                  setup(int planeSubdivision = 200, int roomWidth = 100, int roomHeight = 50, int roomDepth = 50, LightsHandler* lightsHandler = NULL);
   void                  setupGUI(int roomWidth = 100, int roomHeight = 50, int roomDepth = 50);
-  void                  customDraw(ofxFirstPersonCamera& cam, float time);
+  void                  customDraw(ofxFirstPersonCamera& cam, float time, bool useShader = true);
   void                  setLightHandler(LightsHandler* lightsHandler);
   void                  saveSettings();
   void                  loadSettings();
   void                  toggleGUI();
 
 private:
-  void                  drawBack(ofxFirstPersonCamera& cam, float time);
-  void                  drawRight(ofxFirstPersonCamera& cam, float time);
-  void                  drawLeft(ofxFirstPersonCamera& cam, float time);
-  void                  drawBottom(ofxFirstPersonCamera& cam, float time);
-  void                  drawTop(ofxFirstPersonCamera& cam, float time);
+  void                  drawBack(ofxFirstPersonCamera& cam, float time, bool useShader = true);
+  void                  drawRight(ofxFirstPersonCamera& cam, float time, bool useShader = true);
+  void                  drawLeft(ofxFirstPersonCamera& cam, float time, bool useShader = true);
+  void                  drawBottom(ofxFirstPersonCamera& cam, float time, bool useShader = true);
+  void                  drawTop(ofxFirstPersonCamera& cam, float time, bool useShader = true);
   void                  loadShader();
-  void                  drawFace(ofPlanePrimitive& face, ofxFirstPersonCamera& cam, float time);
+  void                  drawFace(ofPlanePrimitive& face, ofxFirstPersonCamera& cam, float time, bool useShader = true);
   void                  addLights(ofxAutoReloadedShader shader, ofxFirstPersonCamera& cam);
   void                  setupLights();
   

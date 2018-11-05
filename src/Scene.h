@@ -35,6 +35,8 @@ private:
   void                  onColorEvent(ofxDatGuiColorPickerEvent e);
   float                 time;
   float                 timeSpeed;
+  
+  PointLight*           pointLight;
 };
 
 #endif /* Scene_hpp */

@@ -10,6 +10,9 @@ uniform mat4 normalMatrix;
 uniform int doTwist;
 uniform float time;
 
+vec3 normalAfterSteps;
+vec4 positionAfterSteps;
+
 //Default from OF::shader
 in vec4  position;
 in vec3 normal;
@@ -26,6 +29,18 @@ uniform mat4 modView;
 uniform mat4 model;
 uniform float angle_deg_max;
 uniform float height;
+
+// Uniform for shadow
+
+uniform mat4 lightSpaceMatrix;
+uniform mat4  u_ShadowTransMatrix;
+uniform vec3  u_lightPosInWorldSpace;
+
+// Out for shadow
+
+out vec3  v_Normal;
+out vec4  v_VertInLightSpace;
+out vec3  v_LightDir;
 
 // model o modelMatrix sono la stessa cosa
 
@@ -66,18 +81,22 @@ vec4 DoTwist( vec4 pos, float t, vec4 positionToCheck )
 
 // Try to use the normalMatrix!!
 void main() {
-  gl_Position = projectionMatrix * viewMatrix * modelMatrix * position;
-  FragPos = vec3(modelMatrix * vec4(position.xyz, 1.0));
+  positionAfterSteps = position;
+  gl_Position = projectionMatrix * viewMatrix * modelMatrix * positionAfterSteps;
+  FragPos = vec3(modelMatrix * vec4(positionAfterSteps.xyz, 1.0));
+  normalAfterSteps = ( inverse(transpose(modelMatrix)) * vec4(normal, 0.0)).xyz;
   // Usre inverse(traspose...)  mi sembra più corretto che usare la normalMatrix
-  Normal = ( inverse(transpose(modelMatrix)) * vec4(normal, 0.0)).xyz;
   if(doTwist == 1){
     addTwist(position);
   }
-  
+  Normal = normalAfterSteps;
+  gl_Position = projectionMatrix * viewMatrix * modelMatrix * positionAfterSteps;
   //normal = gl_NormalMatrix * twistedNormal.xyz;
-  
-
   TexCoords = texcoord;
+  
+  // For shadow
+  vec4 vertInViewSpace =  viewMatrix * modelMatrix  * positionAfterSteps;
+  v_VertInLightSpace = u_ShadowTransMatrix * vertInViewSpace;
 }
 
 vec4 enlarge(vec4 pos, vec3 normal){
@@ -110,6 +129,8 @@ void addTwist(vec4 position){
   gl_Position = projectionMatrix * viewMatrix * modelMatrix * twistedPosition;
   FragPos = vec3(modelMatrix * vec4(twistedPosition.xyz, 1.0));
   Normal = ( inverse(transpose(modelMatrix)) * vec4(twistedNormal)).xyz;
-  vec4 enlargePosition = enlarge(twistedPosition, Normal.xyz);
+  normalAfterSteps = Normal;
+  positionAfterSteps = twistedPosition;
+//  vec4 enlargePosition = enlarge(twistedPosition, Normal.xyz);
 //  gl_Position = projectionMatrix * viewMatrix * modelMatrix * enlargePosition;
 }

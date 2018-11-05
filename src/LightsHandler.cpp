@@ -100,6 +100,9 @@ void LightsHandler::addPointLight(PointLight *pointLight, string lightPos, ofxAu
   shader.setUniform1f("pointLights["+lightPos+"].linear", linear);
   shader.setUniform1f("pointLights["+lightPos+"].quadratic", quadratic);
   shader.setUniform1f("pointLights["+lightPos+"].attenuationFactor", attenuationFactor);
+  if(pointLight->castShadow->getChecked()){
+    pointLight->addShaderVariableForShadow(shader, cam);
+  }
   pointLight = NULL;
 }
 
