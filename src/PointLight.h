@@ -60,6 +60,8 @@ public:
   ofxDatGuiSlider*                    lookAtXSlider;
   ofxDatGuiSlider*                    lookAtYSlider;
   ofxDatGuiSlider*                    lookAtZSlider;
+  void                                enableCastShadow();
+  void                                disableCastShadow();
 
 private:
   ofSpherePrimitive                   sphere;

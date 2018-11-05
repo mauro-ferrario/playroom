@@ -31,6 +31,7 @@ public:
   ofxDatGuiColorPicker*               diffusePicker;
   ofxDatGuiSlider*                    specularSlider;
   LightTypes                          type;
+  bool                                bCastShadow;
 
 protected:
   ofxDatGuiFolder*                    lightGUIFolder;

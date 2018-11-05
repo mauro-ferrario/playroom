@@ -23,6 +23,7 @@ public:
   void      saveSettings();
   void      loadSettings();
   void      toggleGUI();
+  void      drawScene(ofxFirstPersonCamera& _cam, float _time, bool _useShader);
   
 private:
   void                  setupGUI();

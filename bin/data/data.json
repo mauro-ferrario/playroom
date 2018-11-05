@@ -29,14 +29,14 @@
          "light-cam-far-clip" : 92623.6875,
          "light-cam-near-clip" : 8.770000457763672,
          "linear" : 0,
-         "look-at-x" : 3.279999971389771,
-         "look-at-y" : -3.279999971389771,
-         "look-at-z" : -150.8200073242188,
-         "position-x" : -0.1099999994039536,
+         "look-at-x" : -9.840000152587891,
+         "look-at-y" : -19.67000007629395,
+         "look-at-z" : -95.08000183105469,
+         "position-x" : -0.1299999952316284,
          "position-y" : -0.1099999994039536,
          "position-z" : 1,
          "quadratic" : -0.3100000023841858,
-         "shadow-intensity" : 0.6000000238418579,
+         "shadow-intensity" : 0.5099999904632568,
          "specular" : 0
       },
       "room-point-light-2" : {
@@ -161,7 +161,7 @@
       },
       "twist" : {
          "do-twist" : true,
-         "twist-rotation" : 244.9199981689453
+         "twist-rotation" : 360
       }
    },
    "test-model" : {

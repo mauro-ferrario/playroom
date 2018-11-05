@@ -24,6 +24,22 @@ public:
   void                passLightsToShader(ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam);
   void                addDirectionalLight(DirectionalLight *dirLight, string lightPos, ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam);
   void                addPointLight(PointLight *dirLight, string lightPos, ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam);
+  
+  template<typename Draw>
+  void updateShadow(ofxFirstPersonCamera& cam, float time, bool useShader, Draw & element){
+    for (std::vector<Light*>::iterator it = lights.begin() ; it != lights.end(); ++it){
+      if((*it)->bCastShadow){
+        PointLight* pointLight = dynamic_cast<PointLight*>(*it);
+        pointLight->beginShadowFbo();
+        ofEnableDepthTest();
+        element.drawScene(cam, time, useShader);
+        ofDisableDepthTest();
+        pointLight->endShadowFbo();
+        pointLight = NULL;
+      }
+    }
+  }
+  
   void                draw();
   vector<Light*>      lights;
   

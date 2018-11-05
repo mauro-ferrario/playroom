@@ -38,7 +38,6 @@ void LightsHandler::onSliderEvent(ofxDatGuiSliderEvent e)
 void LightsHandler::onColorEvent(ofxDatGuiColorPickerEvent e)
 {
 }
-
 void LightsHandler::passLightsToShader(ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam){
   int totDirectionalLight = 0;
   int totPointLight = 0;

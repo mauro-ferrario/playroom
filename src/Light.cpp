@@ -9,6 +9,7 @@
 
 Light::Light(string name, bool addToGUI){
   this->name = name;
+  bCastShadow = false;
   setNameWithoutSpaces(name);
   this->addToGUI = addToGUI;
 }

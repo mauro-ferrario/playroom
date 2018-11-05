@@ -11,6 +11,7 @@ PointLight::PointLight(string name, bool addToGUI, ofVec3f maxMovement, ofVec3f 
   this->setType(LightTypes::POINT);
   setMovement(minMovement, maxMovement);
   sphere.set(5, 10);
+  bCastShadow = true;
   setupForShadow();
 }
 
@@ -28,6 +29,14 @@ void PointLight::setupForShadow(){
   // range of the shadow camera //
   setRange( 10, 150 );
   setBias( 0.01 );
+}
+
+void PointLight::enableCastShadow(){
+  bCastShadow = true;
+}
+
+void PointLight::disableCastShadow(){
+  bCastShadow = false;
 }
 
 void PointLight::setRange( float nearClip, float farClip ) {
@@ -49,8 +58,8 @@ void PointLight::beginShadowFbo() {
   shadowFbo.begin();
   ofClear(255);
   lightCam.begin();
-  //    glEnable( GL_CULL_FACE ); // cull front faces - this helps with artifacts and shadows with exponential shadow mapping
-  //    glCullFace( GL_BACK );
+      glEnable( GL_CULL_FACE ); // cull front faces - this helps with artifacts and shadows with exponential shadow mapping
+      glCullFace( GL_BACK );
 }
 
 //--------------------------------------------------------------
@@ -58,8 +67,8 @@ void PointLight::endShadowFbo() {
   lightCam.end();
   shadowFbo.end();
   glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-  //    glCullFace( GL_BACK );
-  //    glDisable( GL_CULL_FACE );
+      glCullFace( GL_BACK );
+      glDisable( GL_CULL_FACE );
   
 }
 
@@ -69,6 +78,19 @@ void PointLight::setMovement(ofVec3f maxMovement, ofVec3f minMovement){
 }
 
 void PointLight::addShaderVariableForShadow(ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam){
+  
+  if(castShadow->getChecked()&&!shadowFbo.isAllocated()){
+    lightGUIFolder->getComponent(ofxDatGuiType::TEXTURE, "Light POV")->setVisible(true);
+//    ofxDatGuiTexture* guiTexture = dynamic_cast<ofxDatGuiTexture*>(lightGUIFolder->getComponent(ofxDatGuiType::TEXTURE, "Light POV"));
+//    guiTexture->setTexture(&shadowFbo.getDepthTexture());
+//    guiTexture = NULL;
+  }
+  else  if(!castShadow->getChecked()){
+//    shadowFbo.clear();
+    lightGUIFolder->getComponent(ofxDatGuiType::TEXTURE, "Light POV")->setVisible(false);
+  }
+  
+  
   ofMatrix4x4 inverseCameraMatrix = ofMatrix4x4::getInverseOf( cam.getModelViewMatrix() );
   ofMatrix4x4 shadowTransMatrix = inverseCameraMatrix * lightCam.getModelViewMatrix() * lightCam.getProjectionMatrix() * biasMatrix;
   shader.setUniformTexture( "tShadowMap", shadowFbo.getDepthTexture(), 3 );
@@ -127,9 +149,13 @@ void PointLight::setupGUI(ofxDatGui& gui){
   
   lightCamNearClipSlider = lightGUIFolder->addSlider("Light cam near clip", 0.001, 10, 10);
   lightCamFarClipSlider = lightGUIFolder->addSlider("Light cam far clip", 10, 100000, 150);
-  biasSlider = lightGUIFolder->addSlider("Bias", 0.001, 0.100, 0.01);
-  shadowIntensitySlider = lightGUIFolder->addSlider("Shadow intensity", 0, 1.5, 0.7);
+  biasSlider = lightGUIFolder->addSlider("Bias", 0.001, 0.010, 0.01);
+  shadowIntensitySlider = lightGUIFolder->addSlider("Shadow intensity", 0, 1.0, 0.7);
+  
+  lightGUIFolder->addTexture("Light POV", &shadowFbo.getDepthTexture() );
+  
 }
+
 
 ofVec3f PointLight::getPosition(){
   ofVec3f position;

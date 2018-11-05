@@ -18,7 +18,6 @@ Scene::Scene(){
   room.setLightHandler(lightsHandler);
   room.setup();
   loadSettings();
-  pointLight = dynamic_cast<PointLight*>(lightsHandler->lights[1]);
 }
 
 void Scene::setupGUI(){
@@ -90,31 +89,20 @@ void Scene::onColorEvent(ofxDatGuiColorPickerEvent e)
 
 void Scene::update(){
   time += timeSpeed;
-  pointLight->beginShadowFbo();
-  ofEnableDepthTest();
-  room.customDraw(cam, time, false);
-  ofDisableDepthTest();
-  pointLight->endShadowFbo();
+  lightsHandler->updateShadow(cam, time, false, *this);
 }
 
 void Scene::draw(){
   cam.begin();
+  drawScene(cam, time, true);
+  cam.end();
+}
+
+void Scene::drawScene(ofxFirstPersonCamera& _cam, float _time, bool _useShader){
   ofEnableDepthTest();
-  room.customDraw(cam, time);
+  room.customDraw(_cam, _time, _useShader);
   lightsHandler->draw();
   ofDisableDepthTest();
-  cam.end();
-  
-  if(gui->getVisible()){
-    ofPushMatrix();
-    ofTranslate(0,600);
-    ofScale(0.25,0.25);
-    ofPushStyle();
-    ofSetColor(255);
-    pointLight->shadowFbo.getDepthTexture().draw(0,0);
-    ofPopStyle();
-    ofPopMatrix();
-  }
 }
 
 void Scene::toggleGUI(){
