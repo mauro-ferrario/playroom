@@ -139,7 +139,6 @@
 		A9903BD5218B7B9A00EFCE1E /* room.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = room.frag; sourceTree = "<group>"; };
 		A9ECA08D218FAF2800C7D572 /* shadowMap.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shadowMap.frag; sourceTree = "<group>"; };
 		A9ECA08E218FAF2900C7D572 /* shadowMap.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shadowMap.vert; sourceTree = "<group>"; };
-		A9ECA08F218FCAA800C7D572 /* ofxDatGuiTexture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxDatGuiTexture.h; sourceTree = "<group>"; };
 		AAD9C4D0A605AEE0501AF160 /* Room.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Room.h; path = src/Room.h; sourceTree = SOURCE_ROOT; };
 		ADAE582E4696B9BD64E5B2B8 /* IOSystem.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = IOSystem.hpp; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/assimp/IOSystem.hpp; sourceTree = SOURCE_ROOT; };
 		AED6F84D8DABA623CAF59F13 /* color4.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = color4.h; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/assimp/color4.h; sourceTree = SOURCE_ROOT; };
@@ -374,7 +373,6 @@
 				902724601B82C6AD81BBCD71 /* ofxDatGui2dPad.h */,
 				C085A33340AB0C1DB647AC2F /* ofxDatGuiTextInput.h */,
 				CDF7278CB636137FE7BF91A5 /* ofxDatGuiMatrix.h */,
-				A9ECA08F218FCAA800C7D572 /* ofxDatGuiTexture.h */,
 			);
 			name = components;
 			sourceTree = "<group>";
