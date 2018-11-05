@@ -137,6 +137,7 @@
 		A9871FF6218DDFA0002F8777 /* ModelTestMesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelTestMesh.h; sourceTree = "<group>"; };
 		A9903BD4218B7B9A00EFCE1E /* room.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = room.vert; sourceTree = "<group>"; };
 		A9903BD5218B7B9A00EFCE1E /* room.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = room.frag; sourceTree = "<group>"; };
+		A9CAF56921907BB8006DA779 /* ofxDatGuiTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxDatGuiTexture.h; path = ../../../addons/ofxDatGui/src/components/ofxDatGuiTexture.h; sourceTree = "<group>"; };
 		A9ECA08D218FAF2800C7D572 /* shadowMap.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shadowMap.frag; sourceTree = "<group>"; };
 		A9ECA08E218FAF2900C7D572 /* shadowMap.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shadowMap.vert; sourceTree = "<group>"; };
 		AAD9C4D0A605AEE0501AF160 /* Room.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Room.h; path = src/Room.h; sourceTree = SOURCE_ROOT; };
@@ -360,6 +361,7 @@
 		947FCD1248D8B0A16B53C1AA /* components */ = {
 			isa = PBXGroup;
 			children = (
+				A9CAF56921907BB8006DA779 /* ofxDatGuiTexture.h */,
 				C84ED7FCC017328C6F58283D /* ofxDatGuiColorPicker.h */,
 				D0D6A66BEBA820EA1D396889 /* ofxDatGuiSlider.h */,
 				64C563B8158C37E9D07AE29D /* ofxDatGuiFRM.h */,

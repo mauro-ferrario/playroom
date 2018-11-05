@@ -150,6 +150,7 @@ void PointLight::setupGUI(ofxDatGui& gui){
   lightCamNearClipSlider = lightGUIFolder->addSlider("Light cam near clip", 0.001, 10, 10);
   lightCamFarClipSlider = lightGUIFolder->addSlider("Light cam far clip", 10, 100000, 150);
   biasSlider = lightGUIFolder->addSlider("Bias", 0.001, 0.010, 0.01);
+  biasSlider->setPrecision(3);
   shadowIntensitySlider = lightGUIFolder->addSlider("Shadow intensity", 0, 1.0, 0.7);
   
   lightGUIFolder->addTexture("Light POV", &shadowFbo.getDepthTexture() );
