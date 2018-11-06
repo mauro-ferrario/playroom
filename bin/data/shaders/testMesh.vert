@@ -42,6 +42,18 @@ out vec3  v_Normal;
 out vec4  v_VertInLightSpace;
 out vec3  v_LightDir;
 
+// For shadow 2
+
+out VS_OUT {
+  vec3 FragPos;
+  vec3 Normal;
+  vec2 TexCoords;
+  vec4 FragPosLightSpace;
+} vs_out;
+
+
+// End for shadow 2
+
 // model o modelMatrix sono la stessa cosa
 
 void addTwist(vec4 position);
@@ -97,6 +109,13 @@ void main() {
   // For shadow
   vec4 vertInViewSpace =  viewMatrix * modelMatrix  * positionAfterSteps;
   v_VertInLightSpace = u_ShadowTransMatrix * vertInViewSpace;
+  
+  // For shadow 2
+  vs_out.FragPos = vec3(modelMatrix * vec4(positionAfterSteps.xyz, 1.0));
+  vs_out.Normal = normalAfterSteps;
+  vs_out.TexCoords = texcoord;
+  vs_out.FragPosLightSpace = lightSpaceMatrix * vec4(vs_out.FragPos, 1.0);
+//  gl_Position = projection * view * model * vec4(aPos, 1.0);
 }
 
 vec4 enlarge(vec4 pos, vec3 normal){
@@ -131,6 +150,6 @@ void addTwist(vec4 position){
   Normal = ( inverse(transpose(modelMatrix)) * vec4(twistedNormal)).xyz;
   normalAfterSteps = Normal;
   positionAfterSteps = twistedPosition;
-//  vec4 enlargePosition = enlarge(twistedPosition, Normal.xyz);
-//  gl_Position = projectionMatrix * viewMatrix * modelMatrix * enlargePosition;
+  vec4 enlargePosition = enlarge(twistedPosition, Normal.xyz);
+  positionAfterSteps = enlargePosition;
 }

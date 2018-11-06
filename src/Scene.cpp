@@ -101,7 +101,9 @@ void Scene::draw(){
 void Scene::drawScene(ofxFirstPersonCamera& _cam, float _time, bool _useShader){
   ofEnableDepthTest();
   room.customDraw(_cam, _time, _useShader);
-  lightsHandler->draw();
+  if(_useShader){
+    lightsHandler->draw();
+  }
   ofDisableDepthTest();
 }
 

@@ -29,6 +29,7 @@ void PointLight::setupForShadow(){
   // range of the shadow camera //
   setRange( 10, 150 );
   setBias( 0.01 );
+// lightCam.enableOrtho();
 }
 
 void PointLight::enableCastShadow(){
@@ -52,14 +53,16 @@ void PointLight::setLightLookAt( ofVec3f aPos, ofVec3f upVector ) {
 void PointLight::beginShadowFbo() {
   lightCam.setNearClip(lightCamNearClipSlider->getValue());
   lightCam.setFarClip(lightCamFarClipSlider->getValue());
-  lightCam.setPosition(this->getPosition());
-  setLightLookAt( ofVec3f(lookAtXSlider->getValue(), lookAtYSlider->getValue(), lookAtZSlider->getValue()), ofVec3f(0, 1,0) );
+//  lightCam.setPosition(-2.0f, 4.0f, -1.0f);
+   lightCam.setPosition(this->getPosition());
+//  setLightLookAt( ofVec3f(lookAtXSlider->getValue(), lookAtYSlider->getValue(), lookAtZSlider->getValue()), ofVec3f(0, 1,0) );
+  setLightLookAt( ofVec3f(0.0), ofVec3f(0, 1,0) );
   glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
   shadowFbo.begin();
   ofClear(255);
   lightCam.begin();
-      glEnable( GL_CULL_FACE ); // cull front faces - this helps with artifacts and shadows with exponential shadow mapping
-      glCullFace( GL_BACK );
+  glEnable( GL_CULL_FACE ); // cull front faces - this helps with artifacts and shadows with exponential shadow mapping
+  glCullFace( GL_BACK );
 }
 
 //--------------------------------------------------------------
@@ -67,8 +70,8 @@ void PointLight::endShadowFbo() {
   lightCam.end();
   shadowFbo.end();
   glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-      glCullFace( GL_BACK );
-      glDisable( GL_CULL_FACE );
+  glCullFace( GL_BACK );
+  glDisable( GL_CULL_FACE );
   
 }
 
@@ -103,6 +106,16 @@ void PointLight::addShaderVariableForShadow(ofxAutoReloadedShader& shader, ofxFi
   shader.setUniform1f( "u_height", shadowFbo.getHeight() );
   shader.setUniform1f("u_bias", biasSlider->getValue() );
   shader.setUniform1f("u_shadowIntensity", shadowIntensitySlider->getValue() );
+  
+  
+  
+  glm::mat4 lightView = glm::lookAt(glm::vec3(this->getPosition()),
+                                    glm::vec3( 0.0f, 0.0f,  0.0f),
+                                    glm::vec3( 0.0f, 1.0f,  0.0f));
+  glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, lightCam.getNearClip(), lightCam.getFarClip());
+  glm::mat4 lightSpaceMatrix = lightProjection * lightView;
+  lightSpaceMatrix = lightCam.getProjectionMatrix() * lightView;
+  shader.setUniformMatrix4f("lightSpaceMatrix", lightSpaceMatrix );
 }
 
 //--------------------------------------------------------------
@@ -117,6 +130,11 @@ void PointLight::allocateFbo() {
   settings.useStencil = true;
   //    settings.depthStencilInternalFormat = GL_DEPTH_COMPONENT32;
   shadowFbo.allocate( settings );
+  shadowFbo.getTexture().setTextureWrap(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+  shadowFbo.bind();
+  ofFloatColor color(1.0,1.0,1.0,1.0);
+  glTexParameterfv(GL_TEXTURE_RECTANGLE, GL_TEXTURE_BORDER_COLOR, &color.r);
+  shadowFbo.unbind();
 }
 
 //--------------------------------------------------------------
@@ -135,7 +153,7 @@ void PointLight::setupGUI(ofxDatGui& gui){
   drawToggle  = lightGUIFolder->addToggle("Draw", false);
   positionXSlider = lightGUIFolder->addSlider("Position x", -1, 1, 0);
   positionYSlider = lightGUIFolder->addSlider("Position y", -1, 1, 0);
-  positionZSlider = lightGUIFolder->addSlider("Position z", -1, 1, 0);
+  positionZSlider = lightGUIFolder->addSlider("Position z", -3, 3, 0);
   constantSlider = lightGUIFolder->addSlider("Constant", 0, 1, 1);
   linearSlider = lightGUIFolder->addSlider("Linear", -1, 1, 0.17);
   quadraticSlider = lightGUIFolder->addSlider("Quadratic", -1, 1, 0.192);

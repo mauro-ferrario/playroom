@@ -32,7 +32,9 @@ public:
         PointLight* pointLight = dynamic_cast<PointLight*>(*it);
         pointLight->beginShadowFbo();
         ofEnableDepthTest();
+        glCullFace(GL_FRONT);
         element.drawScene(cam, time, useShader);
+        glCullFace(GL_BACK);
         ofDisableDepthTest();
         pointLight->endShadowFbo();
         pointLight = NULL;

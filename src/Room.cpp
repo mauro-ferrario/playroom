@@ -69,7 +69,7 @@ void Room::setupGUI(int roomWidth, int roomHeight, int roomDepth){
   wallsFolder->addToggle("Show top", true);
   wallsFolder->addToggle("Show bottom", true);
 
-  sizeFolder->addSlider("Light movement factor", 0, 2, 1.6);
+  sizeFolder->addSlider("Light movement factor", 0, 5, 1.6);
   
   // Material props
   
