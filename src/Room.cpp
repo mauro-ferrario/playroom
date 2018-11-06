@@ -52,6 +52,7 @@ void Room::setLightHandler(LightsHandler* lightsHandler){
 
 void Room::setupGUI(int roomWidth, int roomHeight, int roomDepth){
   gui = new ofxDatGui( ofxDatGuiAnchor::TOP_LEFT, "room");
+  gui->setPosition(gui->getWidth(), 0);
   gui->addLabel(":: "+gui->getName()+" ::");
   ofxDatGuiFolder* sizeFolder = gui->addFolder("Room size", ofColor::blue);
   ofxDatGuiFolder* wallsFolder = gui->addFolder("Room walls", ofColor::blue);
