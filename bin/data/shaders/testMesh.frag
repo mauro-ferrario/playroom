@@ -100,7 +100,7 @@ float ShadowCalculation(vec4 fragPosLightSpace)
       shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;
     }
   }
-  shadow /= 9.0; // intensity
+  shadow /= 19.0; // intensity
   
 //  shadow = currentDepth - bias > closestDepth  ? 1.0 : 0.0;
 // shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
