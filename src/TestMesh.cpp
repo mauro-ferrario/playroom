@@ -23,15 +23,15 @@ void TestMesh::updateOriginalMesh(ofMesh _mesh){
 }
 
 void TestMesh::draw(ofxFirstPersonCamera& cam, float time, bool useShader){
-  if(gui->getToggle("Enabled")->getChecked()){
+  if(toggleEnabled->getChecked()){
     ofVec3f tempPosition;
     ofVec3f tempRotation;
-    tempPosition.x = gui->getSlider("Pos x")->getValue();
-    tempPosition.y = gui->getSlider("Pos y")->getValue();
-    tempPosition.z = gui->getSlider("Pos z")->getValue();
-    tempRotation.x = gui->getSlider("Rotation x")->getValue();
-    tempRotation.y = gui->getSlider("Rotation y")->getValue();
-    tempRotation.z = gui->getSlider("Rotation z")->getValue();
+    tempPosition.x = positionXSlider->getValue();
+    tempPosition.y = positionYSlider->getValue();
+    tempPosition.z = positionZSlider->getValue();
+    tempRotation.x = rotationXSlider->getValue();
+    tempRotation.y = rotationYSlider->getValue();
+    tempRotation.z = rotationZSlider->getValue();
     ofPushMatrix();
     ofTranslate(tempPosition);
     ofRotateXDeg(tempRotation.x);
@@ -40,10 +40,10 @@ void TestMesh::draw(ofxFirstPersonCamera& cam, float time, bool useShader){
     if(useShader){
       shader.begin();
       shader.setUniformMatrix4f("normalMatrix", ofGetCurrentNormalMatrix());
-      shader.setUniform1i("doTwist", gui->getToggle("Do twist")->getChecked());
+      shader.setUniform1i("doTwist", toggleDoTwist->getChecked());
       shader.setUniform1f("time", time);
       shader.setUniform3f("viewPos", cam.getGlobalPosition());
-      shader.setUniform1f("angle_deg_max", gui->getSlider("Twist rotation")->getValue());
+      shader.setUniform1f("angle_deg_max", twistRotationSlider->getValue());
       shader.setUniform1f("height", height);
       lightsHandler->passLightsToShader(shader, cam);
       addMaterial(shader);
@@ -57,12 +57,12 @@ void TestMesh::draw(ofxFirstPersonCamera& cam, float time, bool useShader){
 }
 
 void TestMesh::addMaterial(ofxAutoReloadedShader shader){
-  float materialSpecular = gui->getSlider("Specular")->getValue();
-  ofColor materialDiffuseColor = gui->getColorPicker( "Diffuse Color")->getColor();
+  float materialSpecular = specularSlider->getValue();
+  ofColor materialDiffuseColor = diffuseColorPicker->getColor();
   // Material
   shader.setUniform3f("material.diffuse", materialDiffuseColor.r/255.0, materialDiffuseColor.g/255.0, materialDiffuseColor.b/255.0);
   shader.setUniform3f("material.specular", materialSpecular, materialSpecular, materialSpecular);
-  shader.setUniform1f("material.shininess",  pow(2, (int) gui->getSlider("Material Shininess")->getValue()));
+  shader.setUniform1f("material.shininess",  pow(2, (int) shininessSlider->getValue()));
 }
 
 void TestMesh::setLightsHandler(LightsHandler* lightsHandler){
@@ -77,30 +77,30 @@ void TestMesh::setupGUI(){
   gui = new ofxDatGui( ofxDatGuiAnchor::TOP_LEFT, this->name);
   gui->setPosition(gui->getWidth()*2, 0);
   gui->addLabel(":: "+gui->getName()+" ::");
-  gui->addToggle("Enabled", true);
+  toggleEnabled = gui->addToggle("Enabled", true);
   ofxDatGuiFolder* positionFolder = gui->addFolder("Position", ofColor::blue);
   ofxDatGuiFolder* rotationFolder = gui->addFolder("Rotation", ofColor::blue);
   ofxDatGuiFolder* textureFolder = gui->addFolder("Material", ofColor::blue);
   ofxDatGuiFolder* twistFolder = gui->addFolder("Twist", ofColor::blue);
   
-  positionFolder->addSlider("Pos x", -600, 600);
-  positionFolder->addSlider("Pos y", -600, 600);
-  positionFolder->addSlider("Pos z", -600, 600);
+  positionXSlider = positionFolder->addSlider("Pos x", -600, 600);
+  positionYSlider = positionFolder->addSlider("Pos y", -600, 600);
+  positionZSlider = positionFolder->addSlider("Pos z", -600, 600);
   
-  rotationFolder->addSlider("Rotation x", -360, 360);
-  rotationFolder->addSlider("Rotation y", -360, 360);
-  rotationFolder->addSlider("Rotation z", -360, 360);
+  rotationXSlider = rotationFolder->addSlider("Rotation x", -360, 360);
+  rotationYSlider = rotationFolder->addSlider("Rotation y", -360, 360);
+  rotationZSlider = rotationFolder->addSlider("Rotation z", -360, 360);
   
   // Twist
   
-  twistFolder->addToggle("Do twist", false);
-  twistFolder->addSlider("Twist rotation", 0, 360);
+  toggleDoTwist = twistFolder->addToggle("Do twist", false);
+  twistRotationSlider = twistFolder->addSlider("Twist rotation", 0, 360);
   
   // Material props
   
-  textureFolder->addSlider("Material Shininess", 1.0, 8.0, 1.0);
-  textureFolder->addColorPicker("Diffuse Color", ofFloatColor(1,0.5,0.31));
-  textureFolder->addSlider("Specular", 0.0, 1.0, 0.5);
+  shininessSlider = textureFolder->addSlider("Material Shininess", 1.0, 8.0, 1.0);
+  diffuseColorPicker = textureFolder->addColorPicker("Diffuse Color", ofFloatColor(1,0.5,0.31));
+  specularSlider = textureFolder->addSlider("Specular", 0.0, 1.0, 0.5);
   
   gui->onSliderEvent(this, &TestMesh::onSliderEvent);
   gui->onColorPickerEvent(this, &TestMesh::onColorEvent);

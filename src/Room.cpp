@@ -59,23 +59,23 @@ void Room::setupGUI(int roomWidth, int roomHeight, int roomDepth){
   
   // Room size
   
-  sizeFolder->addSlider("Room width", 0, 200, roomWidth);
-  sizeFolder->addSlider("Room height", 0, 200, roomHeight);
-  sizeFolder->addSlider("Room depth", 0, 200, roomDepth);
+  roomWidthSlider = sizeFolder->addSlider("Room width", 0, 200, roomWidth);
+  roomHeightSlider = sizeFolder->addSlider("Room height", 0, 200, roomHeight);
+  roomDepthSlider = sizeFolder->addSlider("Room depth", 0, 200, roomDepth);
 
-  wallsFolder->addToggle("Show back", true);
-  wallsFolder->addToggle("Show left", true);
-  wallsFolder->addToggle("Show right", true);
-  wallsFolder->addToggle("Show top", true);
-  wallsFolder->addToggle("Show bottom", true);
+  showBackToggle = wallsFolder->addToggle("Show back", true);
+  showLeftToggle = wallsFolder->addToggle("Show left", true);
+  showRightToggle = wallsFolder->addToggle("Show right", true);
+  showTopToggle = wallsFolder->addToggle("Show top", true);
+  showBottomToggle = wallsFolder->addToggle("Show bottom", true);
 
-  sizeFolder->addSlider("Light movement factor", 0, 5, 1.6);
+  lightMovementFactorSlider = sizeFolder->addSlider("Light movement factor", 0, 5, 1.6);
   
   // Material props
   
-  textureFolder->addSlider("Material Shininess", 1.0, 8.0, 1.0);
-  textureFolder->addColorPicker("Diffuse Color", ofFloatColor(1,0.5,0.31));
-  textureFolder->addSlider("Specular", 0.0, 1.0, 0.5);
+  materialShininessSlider = textureFolder->addSlider("Material Shininess", 1.0, 8.0, 1.0);
+  materialDiffuseColorPicker = textureFolder->addColorPicker("Diffuse Color", ofFloatColor(1,0.5,0.31));
+  materialSpecularSlider = textureFolder->addSlider("Specular", 0.0, 1.0, 0.5);
   
   gui->onSliderEvent(this, &Room::onSliderEvent);
   gui->onColorPickerEvent(this, &Room::onColorEvent);
@@ -98,9 +98,9 @@ void Room::onToggleEvent(ofxDatGuiToggleEvent e){
 
 void Room::updateRoomWalls(){
   ofVec3f roomSize;
-  roomSize.x = gui->getSlider("Room width")->getValue();
-  roomSize.y = gui->getSlider("Room height")->getValue();
-  roomSize.z = gui->getSlider("Room depth")->getValue();
+  roomSize.x = roomWidthSlider->getValue();
+  roomSize.y = roomHeightSlider->getValue();
+  roomSize.z = roomDepthSlider->getValue();
   back.set(roomSize.x, roomSize.y, this->planeSubdivision, this->planeSubdivision);
   left.set(roomSize.z, roomSize.y, this->planeSubdivision, this->planeSubdivision);
   right.set(roomSize.z, roomSize.y, this->planeSubdivision, this->planeSubdivision);
@@ -121,8 +121,8 @@ void Room::updateRoomWalls(){
   maxMovement.x = -roomSize.x*0.5;
   maxMovement.y = -roomSize.y*0.5;
   maxMovement.z = -roomSize.z;
-  maxMovement *= gui->getSlider("Light movement factor")->getValue();
-  minMovement *= gui->getSlider("Light movement factor")->getValue();
+  maxMovement *= lightMovementFactorSlider->getValue();
+  minMovement *= lightMovementFactorSlider->getValue();
   pointLight->setMovement(minMovement, maxMovement);
   pointLight2->setMovement(minMovement, maxMovement);
 }
@@ -188,12 +188,12 @@ void Room::drawFace(ofPlanePrimitive& face, ofxFirstPersonCamera& cam, float tim
 }
 
 void Room::addMaterial(ofxAutoReloadedShader shader){
-  float materialSpecular = gui->getSlider( "Specular")->getValue();
-  ofColor materialDiffuseColor = gui->getColorPicker("Diffuse Color")->getColor();
+  float materialSpecular = materialSpecularSlider->getValue();
+  ofColor materialDiffuseColor = materialDiffuseColorPicker->getColor();
   // Material
   shader.setUniform3f("material.diffuse", materialDiffuseColor.r/255.0, materialDiffuseColor.g/255.0, materialDiffuseColor.b/255.0);
   shader.setUniform3f("material.specular", materialSpecular, materialSpecular, materialSpecular);
-  shader.setUniform1f("material.shininess",  pow(2, (int) gui->getSlider( "Material Shininess")->getValue()));
+  shader.setUniform1f("material.shininess",  pow(2, (int) materialShininessSlider->getValue()));
 }
 
 void Room::addLights(ofxAutoReloadedShader shader, ofxFirstPersonCamera& cam){
@@ -201,15 +201,15 @@ void Room::addLights(ofxAutoReloadedShader shader, ofxFirstPersonCamera& cam){
 }
 
 void Room::customDraw(ofxFirstPersonCamera& cam, float time, bool useShader){
-  if(gui->getToggle("Show back")->getChecked())
+  if(showBackToggle->getChecked())
     drawBack(cam, time, useShader);
-  if(gui->getToggle("Show bottom")->getChecked())
+  if(showBottomToggle->getChecked())
     drawBottom(cam, time, useShader);
-  if(gui->getToggle("Show top")->getChecked())
+  if(showTopToggle->getChecked())
     drawTop(cam, time, useShader);
-  if(gui->getToggle("Show left")->getChecked())
+  if(showLeftToggle->getChecked())
     drawLeft(cam, time, useShader);
-  if(gui->getToggle("Show right")->getChecked())
+  if(showRightToggle->getChecked())
     drawRight(cam, time, useShader);
   
    // Devo fare un ciclo  fra tutti gli oggetti aggiunti

@@ -68,6 +68,22 @@ private:
   TestMesh              testMesh;
   BoxTestMesh           boxTestMesh;
   ModelTestMesh         model;
+  
+  ofxDatGuiToggle*      showBackToggle;
+  ofxDatGuiToggle*      showBottomToggle;
+  ofxDatGuiToggle*      showTopToggle;
+  ofxDatGuiToggle*      showLeftToggle;
+  ofxDatGuiToggle*      showRightToggle;
+  
+  ofxDatGuiSlider*       roomWidthSlider;
+  ofxDatGuiSlider*       roomHeightSlider;
+  ofxDatGuiSlider*       roomDepthSlider;
+  
+  ofxDatGuiSlider*       lightMovementFactorSlider;
+  
+  ofxDatGuiSlider*       materialShininessSlider;
+  ofxDatGuiSlider*       materialSpecularSlider;
+  ofxDatGuiColorPicker*  materialDiffuseColorPicker;
 };
 
 #endif /* Room_h */

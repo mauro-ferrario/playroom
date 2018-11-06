@@ -36,6 +36,25 @@ public:
   void                    loadSettings();
   void                    toggleGUI();
   void                    updateOriginalMesh(ofMesh _mesh);
+  
+  
+  
+  ofxDatGuiSlider*        positionXSlider;
+  ofxDatGuiSlider*        positionYSlider;
+  ofxDatGuiSlider*        positionZSlider;
+  
+  ofxDatGuiSlider*        rotationXSlider;
+  ofxDatGuiSlider*        rotationYSlider;
+  ofxDatGuiSlider*        rotationZSlider;
+  
+  ofxDatGuiToggle*        toggleEnabled;
+  ofxDatGuiToggle*        toggleDoTwist;
+  ofxDatGuiSlider*        twistRotationSlider;
+  
+  
+  ofxDatGuiSlider*        specularSlider;
+  ofxDatGuiSlider*        shininessSlider;
+  ofxDatGuiColorPicker*   diffuseColorPicker;
 
 protected:
   float                   height;
