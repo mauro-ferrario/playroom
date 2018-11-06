@@ -21,13 +21,13 @@ Scene::Scene(){
 }
 
 void Scene::setupGUI(){
-  gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT, "scene");
-  gui->setPosition(gui->getWidth(), 0);
+  gui = new ofxDatGui( ofxDatGuiAnchor::TOP_LEFT, "scene");
   gui->addLabel(":: "+gui->getName()+" ::");
   gui->addSlider("Camera near", 0.001, 10);
   gui->addSlider("Camera far", 10, 100000);
   gui->addSlider("Camera speed", 0, 100);
   gui->addSlider("Time speed", 0.001, 10);
+  gui->addFRM();
   gui->onButtonEvent(this, &Scene::onButtonEvent);
   gui->onSliderEvent(this, &Scene::onSliderEvent);
   gui->onColorPickerEvent(this, &Scene::onColorEvent);
