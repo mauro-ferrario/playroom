@@ -30,7 +30,7 @@ void Room::setup(int planeSubdivision, int roomWidth, int roomHeight, int roomDe
 }
 
 void Room::setupLights(){
-  directionalLight = new DirectionalLight("Room directional light", true);
+  directionalLight = new DirectionalLight("Room directional light", true, true);
   this->lightsHandler->addLight(directionalLight);
   
   pointLight = new PointLight("Room point light", true);
@@ -60,9 +60,9 @@ void Room::setupGUI(int roomWidth, int roomHeight, int roomDepth){
   
   // Room size
   
-  roomWidthSlider = sizeFolder->addSlider("Room width", 0, 200, roomWidth);
-  roomHeightSlider = sizeFolder->addSlider("Room height", 0, 200, roomHeight);
-  roomDepthSlider = sizeFolder->addSlider("Room depth", 0, 200, roomDepth);
+  roomWidthSlider = sizeFolder->addSlider("Room width", 0, 600, roomWidth);
+  roomHeightSlider = sizeFolder->addSlider("Room height", 0, 600, roomHeight);
+  roomDepthSlider = sizeFolder->addSlider("Room depth", 0, 600, roomDepth);
 
   showBackToggle = wallsFolder->addToggle("Show back", true);
   showLeftToggle = wallsFolder->addToggle("Show left", true);
@@ -214,8 +214,8 @@ void Room::customDraw(ofxFirstPersonCamera& cam, float time, bool useShader){
     drawRight(cam, time, useShader);
   
    // Devo fare un ciclo  fra tutti gli oggetti aggiunti
-  boxTestMesh.draw(cam, time);
-  model.draw(cam, time);
+  boxTestMesh.draw(cam, time, useShader);
+  model.draw(cam, time, useShader);
   
 //  shader.begin();
 //  shader.setUniform1f("time", ofGetElapsedTimef());

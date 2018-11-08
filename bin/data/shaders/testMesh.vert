@@ -103,19 +103,12 @@ void main() {
   }
   Normal = normalAfterSteps;
   gl_Position = projectionMatrix * viewMatrix * modelMatrix * positionAfterSteps;
-  //normal = gl_NormalMatrix * twistedNormal.xyz;
   TexCoords = texcoord;
-  
-  // For shadow
-  vec4 vertInViewSpace =  viewMatrix * modelMatrix  * positionAfterSteps;
-  v_VertInLightSpace = u_ShadowTransMatrix * vertInViewSpace;
-  
   // For shadow 2
   vs_out.FragPos = vec3(modelMatrix * vec4(positionAfterSteps.xyz, 1.0));
   vs_out.Normal = normalAfterSteps;
   vs_out.TexCoords = texcoord;
   vs_out.FragPosLightSpace = lightSpaceMatrix * vec4(vs_out.FragPos, 1.0);
-//  gl_Position = projection * view * model * vec4(aPos, 1.0);
 }
 
 vec4 enlarge(vec4 pos, vec3 normal){
@@ -124,15 +117,12 @@ vec4 enlarge(vec4 pos, vec3 normal){
   float distanceFromCenter = pos.y;
   float distancePerc = 1.0 - distanceFromCenter/(maxDistanceFromCenter);
   float minSize = .12; // Mettere come variabile esterna
-  
   vec4 new_pos;
   float offset = 1.0004 * distancePerc + minSize;
-  
   new_pos.x = pos.x  * offset;
   new_pos.z = pos.z  * offset;
   new_pos.y = pos.y;
   new_pos.w = pos.w;
-  
   if(pos.y <center){
     return pos;
   }

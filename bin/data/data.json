@@ -12,36 +12,43 @@
       "quadratic" : 0,
       "room-directional-light" : {
          "ambient-color" : [ 0, 0, 0 ],
-         "diffuse-color" : [ 0, 0, 0 ],
-         "direction-x" : 0,
-         "direction-y" : 0,
-         "direction-z" : -0.07999999821186066,
+         "bias" : 0.00800000037997961,
+         "diffuse-color" : [ 9, 9, 9 ],
+         "direction-x" : -0.2800000011920929,
+         "direction-y" : -0.07999999821186066,
+         "direction-z" : -0.3100000023841858,
+         "light-cam-far-clip" : 2041.93994140625,
+         "light-cam-near-clip" : 12.30000019073486,
+         "shadow-intensity" : 0.8299999833106995,
+         "shadow-pos-x" : -99,
+         "shadow-pos-y" : 0,
+         "shadow-pos-z" : 75,
          "specular" : 0
       },
       "room-point-light" : {
          "ambient-color" : [ 0, 0, 0 ],
-         "attenuation-factor" : 2.210000038146973,
-         "bias" : 0.002000000094994903,
+         "attenuation-factor" : 7.949999809265137,
+         "bias" : 0.008999999612569809,
          "cast-shadow" : true,
          "constant" : 0.3100000023841858,
          "diffuse-color" : [ 157, 0, 130 ],
          "draw" : false,
-         "light-cam-far-clip" : 18040.98046875,
-         "light-cam-near-clip" : 4.340000152587891,
+         "light-cam-far-clip" : 1414.109985351562,
+         "light-cam-near-clip" : 0.1599999964237213,
          "linear" : -0.3100000023841858,
-         "look-at-x" : -19.67000007629395,
-         "look-at-y" : -45.90000152587891,
-         "look-at-z" : -19.67000007629395,
-         "position-x" : 0.1299999952316284,
-         "position-y" : 0.02999999932944775,
-         "position-z" : 1.570000052452087,
+         "look-at-x" : 6.559999942779541,
+         "look-at-y" : -95.08000183105469,
+         "look-at-z" : -127.870002746582,
+         "position-x" : 0.2000000029802322,
+         "position-y" : 0.07999999821186066,
+         "position-z" : 0.9300000071525574,
          "quadratic" : -0.3100000023841858,
          "shadow-intensity" : 0.3700000047683716,
-         "specular" : 0.300000011920929
+         "specular" : 0.2800000011920929
       },
       "room-point-light-2" : {
          "ambient-color" : [ 0, 0, 0 ],
-         "attenuation-factor" : 0.7400000095367432,
+         "attenuation-factor" : 9.020000457763672,
          "bias" : 0.001000000047497451,
          "cast-shadow" : false,
          "constant" : 1,
@@ -53,12 +60,12 @@
          "look-at-x" : 0,
          "look-at-y" : 0,
          "look-at-z" : 0,
-         "position-x" : 0,
-         "position-y" : -0.01999999955296516,
-         "position-z" : 0.8399999737739563,
+         "position-x" : -0.300000011920929,
+         "position-y" : 0.07000000029802322,
+         "position-z" : 0.7400000095367432,
          "quadratic" : 0,
          "shadow-intensity" : 0,
-         "specular" : 0.7200000286102295
+         "specular" : 0.699999988079071
       },
       "specular" : 0
    },
@@ -74,16 +81,16 @@
       },
       "room-size" : {
          "light-movement-factor" : 2.420000076293945,
-         "room-depth" : 80.33000183105469,
-         "room-height" : 50,
-         "room-width" : 193.4400024414062
+         "room-depth" : 201.6399993896484,
+         "room-height" : 181.9700012207031,
+         "room-width" : 600
       },
       "room-walls" : {
          "show-back" : true,
          "show-bottom" : true,
          "show-left" : true,
          "show-right" : true,
-         "show-top" : true
+         "show-top" : false
       },
       "room-width" : 200,
       "specular" : 0.5
@@ -91,9 +98,9 @@
    "scene" : {
       "camera-far" : 84427.7890625,
       "camera-near" : 0.8199999928474426,
-      "camera-pos-x" : 3.269937992095947,
-      "camera-pos-y" : 6.544636726379395,
-      "camera-pos-z" : 77.9189453125,
+      "camera-pos-x" : -8.547192573547363,
+      "camera-pos-y" : 38.84402084350586,
+      "camera-pos-z" : 493.1341857910156,
       "camera-speed" : 4.099999904632568,
       "time-speed" : 9.100000381469727
    },
@@ -144,9 +151,9 @@
          "specular" : 0.300000011920929
       },
       "position" : {
-         "pos-x" : -39.34000015258789,
-         "pos-y" : -12,
-         "pos-z" : -19.67000007629395
+         "pos-x" : -88.51999664306641,
+         "pos-y" : -29.51000022888184,
+         "pos-z" : -88.51999664306641
       },
       "rotation" : {
          "rotation-x" : 0,
@@ -154,10 +161,10 @@
          "rotation-z" : 0
       },
       "size" : {
-         "box-depth" : 10,
-         "box-height" : 40,
-         "box-subdivision" : 10,
-         "box-width" : 10
+         "box-depth" : 40.97999954223633,
+         "box-height" : 163.9299926757812,
+         "box-subdivision" : 93.56999969482422,
+         "box-width" : 31.14999961853027
       },
       "twist" : {
          "do-twist" : true,
@@ -171,11 +178,11 @@
          "material-shininess" : 4.329999923706055,
          "specular" : 0.9900000095367432
       },
-      "model-original-scale" : 83.61000061035156,
+      "model-original-scale" : 200,
       "position" : {
-         "pos-x" : 0,
-         "pos-y" : -9.840000152587891,
-         "pos-z" : -39.34000015258789
+         "pos-x" : 29.51000022888184,
+         "pos-y" : -78.69000244140625,
+         "pos-z" : -88.51999664306641
       },
       "rotation" : {
          "rotation-x" : -90,
@@ -184,7 +191,7 @@
       },
       "twist" : {
          "do-twist" : false,
-         "twist-rotation" : 259.6700134277344
+         "twist-rotation" : 360
       }
    }
 }

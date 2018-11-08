@@ -37,7 +37,6 @@ void Scene::loadSettings(){
   gui->loadSettings("data.json");
   lightsHandler->loadSettings();
   room.loadSettings();
-  
   ofVec3f camPos;
   camPos.x = Settings::getFloat("scene/camera-pos-x");
   camPos.y = Settings::getFloat("scene/camera-pos-y");
@@ -89,7 +88,7 @@ void Scene::onColorEvent(ofxDatGuiColorPickerEvent e)
 
 void Scene::update(){
   time += timeSpeed;
-  lightsHandler->updateShadow(cam, time, false, *this);
+  lightsHandler->updateShadow(cam, time, true, *this);
 }
 
 void Scene::draw(){
