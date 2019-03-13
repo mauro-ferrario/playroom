@@ -202,10 +202,10 @@ public:
   }
   
   // ----------------------------------------------
-  char setForwardKey(  char _forwardKey ) { forwardKey   = _forwardKey; }
-  char setBackwardKey( char _backwardKey) { backwardKey   = _backwardKey; }
-  char setRightKey(    char _rightKey)   { rightKey     = _rightKey; }
-  char setLeftKey(    char _leftKey)   { leftKey     = _leftKey; }
+  char setForwardKey(  char _forwardKey ) { forwardKey   = _forwardKey; return forwardKey;}
+  char setBackwardKey( char _backwardKey) { backwardKey   = _backwardKey; return backwardKey; }
+  char setRightKey(    char _rightKey)   { rightKey     = _rightKey; return rightKey; }
+  char setLeftKey(    char _leftKey)   { leftKey     = _leftKey; return leftKey; }
   
   // ----------------------------------------------
   char getForwardKey()   { return forwardKey; }
