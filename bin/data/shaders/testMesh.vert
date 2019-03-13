@@ -17,15 +17,15 @@ vec4 positionAfterSteps;
 in vec4  position;
 in vec3 normal;
 in vec2  texcoord;
-out vec3 FragPos;
-out vec3 Normal;
+// out vec3 FragPos;
+// out vec3 Normal;
 
 //Out for frag
 out vec4 colorVarying;
 out vec2 TexCoords;
 
 //Uniform setup in ofApp
-uniform mat4 modView;
+// uniform mat4 modView;
 uniform mat4 model;
 uniform float angle_deg_max;
 uniform float height;
@@ -33,14 +33,6 @@ uniform float height;
 // Uniform for shadow
 
 uniform mat4 lightSpaceMatrix;
-uniform mat4  u_ShadowTransMatrix;
-uniform vec3  u_lightPosInWorldSpace;
-
-// Out for shadow
-
-out vec3  v_Normal;
-out vec4  v_VertInLightSpace;
-out vec3  v_LightDir;
 
 // For shadow 2
 
@@ -95,13 +87,13 @@ vec4 DoTwist( vec4 pos, float t, vec4 positionToCheck )
 void main() {
   positionAfterSteps = position;
   gl_Position = projectionMatrix * viewMatrix * modelMatrix * positionAfterSteps;
-  FragPos = vec3(modelMatrix * vec4(positionAfterSteps.xyz, 1.0));
+  // FragPos = vec3(modelMatrix * vec4(positionAfterSteps.xyz, 1.0));
   normalAfterSteps = ( inverse(transpose(modelMatrix)) * vec4(normal, 0.0)).xyz;
   // Usre inverse(traspose...)  mi sembra più corretto che usare la normalMatrix
   if(doTwist == 1){
     addTwist(position);
   }
-  Normal = normalAfterSteps;
+  // Normal = normalAfterSteps;
   gl_Position = projectionMatrix * viewMatrix * modelMatrix * positionAfterSteps;
   TexCoords = texcoord;
   // For shadow 2
@@ -136,8 +128,8 @@ void addTwist(vec4 position){
   vec4 twistedPosition = DoTwist(position, ang, position);
   vec4 twistedNormal = DoTwist(vec4(normal, 0.0), ang, twistedPosition);
   gl_Position = projectionMatrix * viewMatrix * modelMatrix * twistedPosition;
-  FragPos = vec3(modelMatrix * vec4(twistedPosition.xyz, 1.0));
-  Normal = ( inverse(transpose(modelMatrix)) * vec4(twistedNormal)).xyz;
+  // FragPos = vec3(modelMatrix * vec4(twistedPosition.xyz, 1.0));
+  vec3 Normal = ( inverse(transpose(modelMatrix)) * vec4(twistedNormal)).xyz;
   normalAfterSteps = Normal;
   positionAfterSteps = twistedPosition;
   vec4 enlargePosition = enlarge(twistedPosition, Normal.xyz);

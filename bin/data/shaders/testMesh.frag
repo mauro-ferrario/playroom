@@ -48,8 +48,8 @@ uniform Material material;
 uniform vec3 viewPos;
 uniform float time;
 in vec2 TexCoords;
-in vec3 Normal;
-in vec3 FragPos;
+// in vec3 Normal;
+// in vec3 FragPos;
 uniform float near;
 uniform float far;
 
@@ -79,7 +79,7 @@ float ShadowCalculation(vec4 fragPosLightSpace)
   // check whether current frag pos is in shadow
   float bias = 0.00015;
   vec3 lightDir = normalize(dirLight.positionForShadow - fs_in.FragPos);
-  bias = max(0.0005 * (1.0 - dot(Normal, lightDir)), 0.0009);
+  bias = max(0.0005 * (1.0 - dot(fs_in.Normal, lightDir)), 0.0009);
   float shadow = 0.0;
   // smooth shadow
   vec2 texelSize = 2.0 / textureSize(shadowMap, 0);
@@ -118,14 +118,14 @@ void main()
 {
   shadow = ShadowCalculation(fs_in.FragPosLightSpace);
   // properties
-  vec3 norm = normalize(Normal);
-  vec3 viewDir = normalize(viewPos - FragPos);
+  vec3 norm = normalize(fs_in.Normal);
+  vec3 viewDir = normalize(viewPos - fs_in.FragPos);
   // phase 1: Directional lighting
   vec3 result = vec3(0.0);
   result += CalcDirLight(dirLight, norm, viewDir);
   // phase 2: Point lights
   for(int i = 0; i < NR_POINT_LIGHTS; i++)
-    result += CalcPointLight(pointLights[i], norm, FragPos, viewDir);
+    result += CalcPointLight(pointLights[i], norm, fs_in.FragPos, viewDir);
   // phase 3: Spot light
   //result += CalcSpotLight(spotLight, norm, FragPos, viewDir);
   FragColor = vec4(result, 1.0);

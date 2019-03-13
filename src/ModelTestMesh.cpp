@@ -22,7 +22,6 @@ void ModelTestMesh::setupGUI(){
   TestMesh::setupGUI();
   gui->addSlider("Model original scale", 0, 200.0);
   gui->setPosition(gui->getWidth()*3,0);
-  
 }
 
 void ModelTestMesh::onSliderEvent(ofxDatGuiSliderEvent e){

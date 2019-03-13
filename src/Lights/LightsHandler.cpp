@@ -38,6 +38,7 @@ void LightsHandler::onSliderEvent(ofxDatGuiSliderEvent e)
 void LightsHandler::onColorEvent(ofxDatGuiColorPickerEvent e)
 {
 }
+
 void LightsHandler::passLightsToShader(ofxAutoReloadedShader& shader, ofxFirstPersonCamera& cam){
   int totPointLight = 0;
   for (std::vector<Light*>::iterator it = lights.begin() ; it != lights.end(); ++it){

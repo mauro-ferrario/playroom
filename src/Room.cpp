@@ -177,7 +177,7 @@ void Room::drawFace(ofPlanePrimitive& face, ofxFirstPersonCamera& cam, float tim
     shader.begin();
     shader.setUniform1i("doTwist", 0);
     shader.setUniform1f("time", time);
-    shader.setUniformMatrix4f("model", face.getGlobalTransformMatrix());
+    // shader.setUniformMatrix4f("model", face.getGlobalTransformMatrix());
     shader.setUniform3f("viewPos", cam.getGlobalPosition());
     addLights(shader, cam);
     addMaterial(shader);
