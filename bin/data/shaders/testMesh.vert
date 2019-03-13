@@ -85,15 +85,14 @@ vec4 DoTwist( vec4 pos, float t, vec4 positionToCheck )
 
 // Try to use the normalMatrix!!
 void main() {
-  positionAfterSteps = position;
-  gl_Position = projectionMatrix * viewMatrix * modelMatrix * positionAfterSteps;
-  // FragPos = vec3(modelMatrix * vec4(positionAfterSteps.xyz, 1.0));
   normalAfterSteps = ( inverse(transpose(modelMatrix)) * vec4(normal, 0.0)).xyz;
   // Usre inverse(traspose...)  mi sembra più corretto che usare la normalMatrix
   if(doTwist == 1){
     addTwist(position);
   }
-  // Normal = normalAfterSteps;
+  else{
+    positionAfterSteps = position;
+  }
   gl_Position = projectionMatrix * viewMatrix * modelMatrix * positionAfterSteps;
   TexCoords = texcoord;
   // For shadow 2
@@ -129,9 +128,9 @@ void addTwist(vec4 position){
   vec4 twistedNormal = DoTwist(vec4(normal, 0.0), ang, twistedPosition);
   gl_Position = projectionMatrix * viewMatrix * modelMatrix * twistedPosition;
   // FragPos = vec3(modelMatrix * vec4(twistedPosition.xyz, 1.0));
+  // Inverse traspose could be calculated in the CPU and passing with uniform
   vec3 Normal = ( inverse(transpose(modelMatrix)) * vec4(twistedNormal)).xyz;
   normalAfterSteps = Normal;
-  positionAfterSteps = twistedPosition;
   vec4 enlargePosition = enlarge(twistedPosition, Normal.xyz);
   positionAfterSteps = enlargePosition;
 }
