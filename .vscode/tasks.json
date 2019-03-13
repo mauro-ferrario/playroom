@@ -1,0 +1,39 @@
+{
+    "tasks" : [
+        {
+            "label": "make",
+            "type": "shell",
+            "command": "make"
+        },
+        {
+            "label": "run",
+            "type": "shell",
+            "command": "make RunRelease",
+            "dependsOn" : [
+                "make"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "type": "shell",
+            "label": "OPENFRAMEWORKS BUILD RELEASE",
+            // "presentation": {
+            //     "reveal": "always",
+            //     "panel": "new"
+            // },
+            "command": "make RunRelease",
+            "dependsOn" : [
+                "make"
+            ],
+            // "args": [
+            //     "-j4"
+            // ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
