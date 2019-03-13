@@ -20,6 +20,7 @@
 *.pyc
 .svn/
 *.log
+*.d
 
 ########################
 # IDE files which should
