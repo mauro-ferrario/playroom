@@ -80,3 +80,6 @@ Desktop.ini
 
 # Android
 .csettings
+bin/libfmodex.so
+bin/playroom
+obj/linux64/Release/.compiler_flags
